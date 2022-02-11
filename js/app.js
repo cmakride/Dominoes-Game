@@ -8,6 +8,11 @@ let comp2 = []
 let comp3 = []
 let comp4 = []
 
+let board = new Array(144).fill(null)
+
+// board.fill(null)
+console.log(board)
+
 let dominoes = []
 let rightEnd = 0
 let leftEnd = 0
@@ -32,7 +37,6 @@ dominoes = [[6,6],[6,5],[6,4],[6,3],[6,2],[6,1],[6,0],
             [1,1],[1,0],[0,0]]
 
 shuffleDominoes()
-console.log(player1)
 linkDominoesToPlayers()
           
 }
@@ -69,7 +73,9 @@ function linkDominoesToPlayers(){
     //cache the current dominoe to update what the div value is for each player
     //Linking Users Dominos to Users Div Dominoes
     const currentUserDom = document.querySelector(`#user-d-${i}`)
-    let currentUserString = player1[i].toString()
+    let currentUserString = player1[i].join("|")
+    
+    console.log(typeof currentUserString)
     currentUserDom.textContent = currentUserString
 
     const currentComp2Dom = document.querySelector(`#comp2-d-${i}`)
@@ -86,13 +92,6 @@ function linkDominoesToPlayers(){
   }
     // get the string value extracted 
     //apply that string value to the currentDom
-    
-
-
-
-  
-
-
   
 }
 
@@ -100,23 +99,23 @@ function linkDominoesToPlayers(){
 
 
 
-//*todo 1. Define the required variables used to track the state of the game.
+//? todo 1. Define the required variables used to track the state of the game.
 
-//*todo 1.1) an array for Each player's dominoes
-// an array within an array, 7 dominoes per player and each dominoe has 2
-// 1.2) an array representing the squares of the board
-// 1.3) variable to track whos turn it is.
-// 1.4) winner variable to track if there is a winner or if the    game is still in play
-// 1.5) a variable for the direction of the two ends of the board
-// 1.6) variables for the two ends of the board or current ends of the board
-// 1.7 variable for number of passes
+//? todo 1.1) an array for Each player's dominoes
+//? an array within an array, 7 dominoes per player and each dominoe has 2
+//? 1.2) an array representing the squares of the board
+//? 1.3) variable to track whos turn it is.
+//? 1.4) winner variable to track if there is a winner or if the    game is still in play
+//? 1.5) a variable for the direction of the two ends of the board
+//? 1.6) variables for the two ends of the board or current ends of the board
+//? 1.7 variable for number of passes
 
 
 
 // 2. Store the cached element references on the page that will be accessed in code more than once
 
-// 2.1) the 28 divs for the dominoes 
-//2.2) the divs for the grid for the game board display
+//? 2.1) the 28 divs for the dominoes 
+//? 2.2) the divs for the grid for the game board display
 //2.3) the cached element for the buttons, easy, med, hard
 //2.4) cached element for the display of the game status
 //2.5) cached element for the play button
@@ -131,10 +130,10 @@ function linkDominoesToPlayers(){
 
 //function for initialization of the state variables
 // sets the board to null
-// calls the shuffle function to shuffle the dominoes
+//? calls the shuffle function to shuffle the dominoes
 // the elements will map to each square or grid on the board do not know the exact number because thinking the board will have to be big 28*28 possibly
 // call function findDoubleSix, searches which player has the double 6 and plays it on the board in the center. since it is the first game whoever has the double 6 domino goes first and whoever has the domino, the player one person counterclockwise is set to play. So set currentplayer to the one with the double Six.
-//call the display players dominoes function which will map each players dominoes to show them on the board, for the computer players this is just showing the amound of dominos they have but for the user will show the values of their dominoes on the screen
+//?call the display players dominoes function which will map each players dominoes to show them on the board, for the computer players this is just showing the amound of dominos they have but for the user will show the values of their dominoes on the screen
 //initialize winner value to null
 //calls the render function
 

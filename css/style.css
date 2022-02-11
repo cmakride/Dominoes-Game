@@ -29,6 +29,7 @@ body {
   border: 1px solid black;
   display : flex;
   gap: 20px 30px;
+  justify-content: space-evenly;
   
 
 }
@@ -42,6 +43,11 @@ align-items: center;
   font-size: 20px;
 }
 
+#user-01 > * {
+  border: 1px solid black;
+
+}
+
 #player-02{
   align-items: center;
   display: flex;
@@ -49,6 +55,11 @@ align-items: center;
   flex-direction: column;
   gap: 20px;
   font-size: 20px;
+
+}
+
+#player-02 > * {
+  border: 1px solid black;
 
 }
 
@@ -62,6 +73,11 @@ align-items: center;
 
 }
 
+#player-03 > * {
+  border: 1px solid black;
+
+}
+
 #player-04{
   align-items: center;
   display: flex;
@@ -69,6 +85,9 @@ align-items: center;
   flex-direction: column;
   gap: 20px;
   font-size: 20px;
-  
+}
+
+#player-04 > * {
+  border: 1px solid black;
 
 }
