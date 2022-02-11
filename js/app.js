@@ -1,18 +1,23 @@
 /*-------------------------------- Constants --------------------------------*/
 //play 1 is the player
-//deck 2 is the computer player on the right of the user
-//deck 3 is the user's computer teammate, accross from the user
-//deck 4 is the computer player on the left of the user
+//comp 2 is the computer player on the right of the user
+//comp 3 is the user's computer teammate, accross from the user
+//comp 4 is the computer player on the left of the user
 let player1 = []
 let comp2 = []
 let comp3 = []
 let comp4 = []
 
 let dominoes = []
+let rightEnd = 0
+let leftEnd = 0
+
+let numberPasses = 0
 
 
 /*-------------------------------- Variables --------------------------------*/
 /*------------------------ Cached Element References ------------------------*/
+
 /*----------------------------- Event Listeners -----------------------------*/
 /*-------------------------------- Functions --------------------------------*/
 init()
@@ -27,6 +32,8 @@ dominoes = [[6,6],[6,5],[6,4],[6,3],[6,2],[6,1],[6,0],
             [1,1],[1,0],[0,0]]
 
 shuffleDominoes()
+console.log(player1)
+linkDominoesToPlayers()
           
 }
 
@@ -51,25 +58,59 @@ for (let i = 1 ; i < 8 ; i++){
   comp4.push(dominoePicked)
 
 }
-console.log(comp2)
-console.log(dominoes)
-
 //splice that index from dominoes and store it in a variable. Take out of the dominoe "deck" and put that in each players deck. 
-
-
-
 }
 
-// 1. Define the required variables used to track the state of the game.
 
-// 1.1) an array for Each player's dominoes
-// an array within an array, 7 dominoes per player and each dominoe has 3 index values, one for each side, and the third to check if the dominoe is a double. 
+function linkDominoesToPlayers(){
+  //need to link the divs in each players dominoes to the array of dominoes for each player
+  //loop 
+  for(i = 0 ; i < 7 ; i++ ){
+    //cache the current dominoe to update what the div value is for each player
+    //Linking Users Dominos to Users Div Dominoes
+    const currentUserDom = document.querySelector(`#user-d-${i}`)
+    let currentUserString = player1[i].toString()
+    currentUserDom.textContent = currentUserString
+
+    const currentComp2Dom = document.querySelector(`#comp2-d-${i}`)
+    let currentComp2String = comp2[i].toString()
+    currentComp2Dom.textContent = currentComp2String
+
+    const currentComp3Dom = document.querySelector(`#comp3-d-${i}`)
+    let currentComp3String = comp3[i].toString()
+    currentComp3Dom.textContent = currentComp3String
+
+    const currentComp4Dom = document.querySelector(`#comp4-d-${i}`)
+    let currentComp4String = comp4[i].toString()
+    currentComp4Dom.textContent = currentComp4String
+  }
+    // get the string value extracted 
+    //apply that string value to the currentDom
+    
+
+
+
+  
+
+
+  
+}
+
+
+
+
+
+//*todo 1. Define the required variables used to track the state of the game.
+
+//*todo 1.1) an array for Each player's dominoes
+// an array within an array, 7 dominoes per player and each dominoe has 2
 // 1.2) an array representing the squares of the board
 // 1.3) variable to track whos turn it is.
 // 1.4) winner variable to track if there is a winner or if the    game is still in play
-//1.5) a variable for the direction of the two ends of the board
-//1.6) variables for the two ends of the board or current ends of the board
-//1.7 variable for number of passes
+// 1.5) a variable for the direction of the two ends of the board
+// 1.6) variables for the two ends of the board or current ends of the board
+// 1.7 variable for number of passes
+
 
 
 // 2. Store the cached element references on the page that will be accessed in code more than once
