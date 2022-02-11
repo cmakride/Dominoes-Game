@@ -1,8 +1,12 @@
 /*-------------------------------- Constants --------------------------------*/
-let playerDominoes = []
-let comp2Dominoes = []
-let comp3Dominoes = []
-let comp4Dominoes = []
+//play 1 is the player
+//deck 2 is the computer player on the right of the user
+//deck 3 is the user's computer teammate, accross from the user
+//deck 4 is the computer player on the left of the user
+let player1 = []
+let comp2 = []
+let comp3 = []
+let comp4 = []
 
 let dominoes = []
 
@@ -22,8 +26,38 @@ dominoes = [[6,6],[6,5],[6,4],[6,3],[6,2],[6,1],[6,0],
             [2,2],[2,1],[2,0],
             [1,1],[1,0],[0,0]]
 
-            console.log(dominoes.length)
+shuffleDominoes()
           
+}
+
+function shuffleDominoes(){
+//choose a random index from dominoes
+//iterating through each player and computer's decks of dominoes, total of 4 arrays
+for (let i = 1 ; i < 8 ; i++){
+  let randDominoeIndex = Math.floor(Math.random()*dominoes.length)
+  let dominoePicked = dominoes.splice(randDominoeIndex,1)
+  player1.push(dominoePicked)
+
+  randDominoeIndex = Math.floor(Math.random()*dominoes.length)
+  dominoePicked = dominoes.splice(randDominoeIndex,1)
+  comp2.push(dominoePicked)
+
+  randDominoeIndex = Math.floor(Math.random()*dominoes.length)
+  dominoePicked = dominoes.splice(randDominoeIndex,1)
+  comp3.push(dominoePicked)
+
+  randDominoeIndex = Math.floor(Math.random()*dominoes.length)
+  dominoePicked = dominoes.splice(randDominoeIndex,1)
+  comp4.push(dominoePicked)
+
+}
+console.log(comp2)
+console.log(dominoes)
+
+//splice that index from dominoes and store it in a variable. Take out of the dominoe "deck" and put that in each players deck. 
+
+
+
 }
 
 // 1. Define the required variables used to track the state of the game.
