@@ -91,3 +91,31 @@ align-items: center;
   border: 1px solid black;
 
 }
+
+section.user-display{
+display: flex;
+flex-direction: row;
+width: 100%;
+
+justify-content: center;
+border: 1px solid black;
+
+
+}
+
+section.gameBoard {
+  display: inline-grid;
+  margin-top: 24px;
+  grid-gap: 0vmin;
+  grid-template-rows: repeat(10, 8vmin);
+  grid-template-columns: repeat(14, 8vmin);
+  justify-content: start;
+  border: 1px solid black;
+  
+}
+
+/* Each Grid Cell of the Board */
+section.gameBoard > *{
+  border: 1px solid black;
+  
+}

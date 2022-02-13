@@ -3,26 +3,30 @@
 //comp 2 is the computer player on the right of the user
 //comp 3 is the user's computer teammate, accross from the user
 //comp 4 is the computer player on the left of the user
+
+
 let player1 = []
 let comp2 = []
 let comp3 = []
 let comp4 = []
 
-let board = new Array(144).fill(null)
-
-// board.fill(null)
-console.log(board)
-
 let dominoes = []
+// this works showing that if a value of 6 is here 0 horizontal
+let board = new Array(140).fill([null,null])
+
+
 let rightEnd = 0
 let leftEnd = 0
+
+let currentTurn = 0
 
 let numberPasses = 0
 
 
 /*-------------------------------- Variables --------------------------------*/
 /*------------------------ Cached Element References ------------------------*/
-
+const gameBoard = document.querySelector(".gameBoard")
+console.log(gameBoard)
 /*----------------------------- Event Listeners -----------------------------*/
 /*-------------------------------- Functions --------------------------------*/
 init()
@@ -38,6 +42,11 @@ dominoes = [[6,6],[6,5],[6,4],[6,3],[6,2],[6,1],[6,0],
 
 shuffleDominoes()
 linkDominoesToPlayers()
+
+//when I get back, what is in the array should display on the board
+linkGridToBoard()
+// currentTurn = findDoubleSix()
+
           
 }
 
@@ -75,7 +84,7 @@ function linkDominoesToPlayers(){
     const currentUserDom = document.querySelector(`#user-d-${i}`)
     let currentUserString = player1[i].join("|")
     
-    console.log(typeof currentUserString)
+    
     currentUserDom.textContent = currentUserString
 
     const currentComp2Dom = document.querySelector(`#comp2-d-${i}`)
@@ -91,8 +100,25 @@ function linkDominoesToPlayers(){
     currentComp4Dom.textContent = currentComp4String
   }
     // get the string value extracted 
-    //apply that string value to the currentDom
+    //apply that string value to the currentDominoe
   
+}
+
+function linkGridToBoard(){}
+for(let i = 0 ; i < board.length; i ++){
+  if(board[i]===null){
+    gameBoard.children[i].textContent = ""
+  }else{
+    //number of dominoe and 0 for horizontal and 1 for vertical
+    gameBoard.children[i].style.backgroundImage = `url('./images/Dominoes_${board[i][0]}_${board[i][1]}.png')`
+  }
+//need to make each dominoe have a third element for vertical or horizontal, remember each element in the board array represents one number so have to make a function that will put a dominoe and place a number in each cell so each element in the board array has two values one for the number and one for the position
+  
+
+
+
+
+
 }
 
 
