@@ -31,7 +31,7 @@ let numberPasses
 
 let isWinner
 
-let axis = 0
+let axis = -1
 
 
 /*-------------------------------- Variables --------------------------------*/
@@ -43,7 +43,7 @@ const player2Dominoes = document.querySelector("#player-02")
 const player3Dominoes = document.querySelector("#player-03")
 const player4Dominoes = document.querySelector("#player-04")
 
-const crossHairGrid = document.querySelector("#crosshair-grid")
+
 const crossHairSq0 = document.querySelector("#ch0")
 const crossHairSq1 = document.querySelector("#ch1")
 const crossHairSq2 = document.querySelector("#ch2")
@@ -53,7 +53,7 @@ const crossHairButton = document.querySelector("#rotate")
 /*----------------------------- Event Listeners -----------------------------*/
 //event listener for crosshair, if click a dominoe in the user's dominoes, that dominoe will appear on the crosshair and the left and right or top and bottom values will be changed if the button is pressed
 player1Dominoes.addEventListener("click",(evt)=>{
-  evt.target.id
+  
   //reason doing this is so if click on the space inbetween the pictures so just click on the dominoes
   if(evt.target.id !== "player-01"){
     //index 5 of the id string will give the value of the dominoe picked and to be put in the crosshair
@@ -62,10 +62,29 @@ player1Dominoes.addEventListener("click",(evt)=>{
     let tempArray = player1[tempNum]
     playerLeft = tempArray[0][0]
     playerRight = tempArray[0][1]
-    console.log('left end: ',playerLeft)
-    console.log('right end: ',playerRight)
+    // console.log('left end: ',playerLeft)
+    // console.log('right end: ',playerRight)
     renderCrossHair()
 }
+})
+
+crossHairButton.addEventListener("click",(evt)=>{
+//if horizontal change to vertical
+  if(axis === -1){
+    playerTop = playerLeft
+    playerBottom = playerRight
+    playerLeft = 0
+    playerRight = 0   
+}
+//if vertical change to horizontal and rotate
+if(axis === 1){
+  playerLeft = playerBottom
+  playerRight = playerTop
+  playerTop = 0
+  playerBottom = 0
+}
+axis*=-1
+renderCrossHair()
 })
 
 //An event listener for the rotate button in the cross hair this is what will change the values
@@ -74,13 +93,24 @@ player1Dominoes.addEventListener("click",(evt)=>{
 init()
 
 function renderCrossHair(){
-  if(axis === 0){
+  //clear the crosshair grid
+  crossHairSq0.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
+  crossHairSq1.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
+  crossHairSq2.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
+    console.log('Left end: ',playerLeft)
+    console.log('Right end: ',playerRight)
+    console.log('Top end: ',playerTop)
+    console.log('Bottom end: ',playerBottom)
+  
+  //horizontal axis
+  if(axis === -1){
     crossHairSq0.style.backgroundImage = `url('./images/Dominoes_${playerLeft}_0.png')`
     crossHairSq1.style.backgroundImage = `url('./images/Dominoes_${playerRight}_0.png')`
   }
+  //vertical
   if(axis === 1){
-    crossHairSq0.style.backgroundImage = `url('./images/Dominoes_${playerTop}_0.png')`
-    crossHairSq2.style.backgroundImage = `url('./images/Dominoes_${playerBottom}_0.png')`
+    crossHairSq0.style.backgroundImage = `url('./images/Dominoes_${playerTop}_1.png')`
+    crossHairSq2.style.backgroundImage = `url('./images/Dominoes_${playerBottom}_1.png')`
   }
 }
 
