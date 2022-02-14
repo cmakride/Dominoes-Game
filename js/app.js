@@ -20,12 +20,15 @@ let leftEnd = 0
 
 let currentTurn = 0
 
-let numberPasses = 0
+let numberPasses
+
+let isWinner
 
 
 /*-------------------------------- Variables --------------------------------*/
 /*------------------------ Cached Element References ------------------------*/
 const gameBoard = document.querySelector(".gameBoard")
+const messageEL = document.querySelector("#play-status")
 const player1Dominoes = document.querySelector("#player-01")
 const player2Dominoes = document.querySelector("#player-02")
 const player3Dominoes = document.querySelector("#player-03")
@@ -37,6 +40,9 @@ console.log(gameBoard)
 init()
 
 function init() {
+
+  isWinner = null
+  numberPasses = 0
 
   dominoes = [[6,6], [6,5], [6,4], [6,3], [6,2], [6,1], [6,0],
   [5,5], [5,4], [5,3], [5,2], [5,1], [5,0],
@@ -51,9 +57,53 @@ function init() {
   currentTurn = findDoubleSix()
   console.log(currentTurn)
 
-   linkDominoesToPlayers()
-  // linkGridToBoard()
+  render()
 
+
+}
+
+function render(){
+//refresh the player's dominoes
+linkDominoesToPlayers()
+//Link the gameboard array to the grid in the html
+linkGridToBoard()
+
+//displaying the message of which player's turn it is
+if(currentTurn === 5){
+  currentTurn = 1
+}
+
+isWinner()
+if(isWinner === null){
+  messageEL.textContent = `Game still in Progress it is Player ${currentTurn}'s Turn`
+}
+
+if(isWinner === 1 || isWinner === 2 || isWinner === 3 || isWinner === 4){
+  messageEL.textContent = `${isWinner} is the Winner!`
+}
+
+if(isWinner === 0){
+  messageEL.textContent = `IT IS A TIE!`
+}
+
+}
+
+function isWinner(){
+  if(player1.length === 0){
+    isWinner = 1
+  }
+  if(player2.length === 0){
+    isWinner = 2
+  }
+  if(player3.length === 0){
+    isWinner = 3
+  }
+  if(player4.length === 0){
+    isWinner = 4
+  }
+  if(numberPasses === 0){
+    isWinner = 0
+  }
 
 }
 
@@ -189,6 +239,8 @@ function findDoubleSix() {
   //need to place the 6,6 on the board.
   board[76] = [6,0]
   board[77] = [6,0]
+  leftEnd = 6
+  rightEnd = 6
   
   return (winner+1)
 }
