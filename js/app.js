@@ -55,7 +55,7 @@ function init() {
   linkDominoesToPlayers()
 
   currentTurn = findDoubleSix()
-  console.log(currentTurn)
+  
 
   render()
 
@@ -73,7 +73,7 @@ if(currentTurn === 5){
   currentTurn = 1
 }
 
-isWinner()
+checkWinner()
 if(isWinner === null){
   messageEL.textContent = `Game still in Progress it is Player ${currentTurn}'s Turn`
 }
@@ -86,9 +86,16 @@ if(isWinner === 0){
   messageEL.textContent = `IT IS A TIE!`
 }
 
+if(isWinner === null && currentTurn !== 1){
+ //computerPick()
+ //computerPick()
+ //computerPick()
+}
+console.log(currentTurn)
+
 }
 
-function isWinner(){
+function checkWinner(){
   if(player1.length === 0){
     isWinner = 1
   }
@@ -101,7 +108,7 @@ function isWinner(){
   if(player4.length === 0){
     isWinner = 4
   }
-  if(numberPasses === 0){
+  if(numberPasses === 4){
     isWinner = 0
   }
 
