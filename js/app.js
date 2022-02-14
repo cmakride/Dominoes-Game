@@ -19,14 +19,19 @@ let board = new Array(140).fill([null, null])
 
 let rightEnd = 0
 let leftEnd = 0
+
 let playerRight = 0
 let playerLeft = 0
+let playerTop = 0
+let playerBottom = 0
 
 let currentTurn = 0
 
 let numberPasses
 
 let isWinner
+
+let axis = 0
 
 
 /*-------------------------------- Variables --------------------------------*/
@@ -37,7 +42,12 @@ const player1Dominoes = document.querySelector("#player-01")
 const player2Dominoes = document.querySelector("#player-02")
 const player3Dominoes = document.querySelector("#player-03")
 const player4Dominoes = document.querySelector("#player-04")
+
 const crossHairGrid = document.querySelector("#crosshair-grid")
+const crossHairSq0 = document.querySelector("#ch0")
+const crossHairSq1 = document.querySelector("#ch1")
+const crossHairSq2 = document.querySelector("#ch2")
+
 const crossHairButton = document.querySelector("#rotate")
 
 /*----------------------------- Event Listeners -----------------------------*/
@@ -50,11 +60,11 @@ player1Dominoes.addEventListener("click",(evt)=>{
     let tempString = evt.target.id
     let tempNum = parseInt(tempString[5])
     let tempArray = player1[tempNum]
-    leftEnd = tempArray[0][0]
-    rightEnd = tempArray[0][1]
-    console.log(leftEnd)
-    console.log(rightEnd)
-    // renderCrossHair()
+    playerLeft = tempArray[0][0]
+    playerRight = tempArray[0][1]
+    console.log('left end: ',playerLeft)
+    console.log('right end: ',playerRight)
+    renderCrossHair()
 }
 })
 
@@ -62,6 +72,17 @@ player1Dominoes.addEventListener("click",(evt)=>{
 
 /*-------------------------------- Functions --------------------------------*/
 init()
+
+function renderCrossHair(){
+  if(axis === 0){
+    crossHairSq0.style.backgroundImage = `url('./images/Dominoes_${playerLeft}_0.png')`
+    crossHairSq1.style.backgroundImage = `url('./images/Dominoes_${playerRight}_0.png')`
+  }
+  if(axis === 1){
+    crossHairSq0.style.backgroundImage = `url('./images/Dominoes_${playerTop}_0.png')`
+    crossHairSq2.style.backgroundImage = `url('./images/Dominoes_${playerBottom}_0.png')`
+  }
+}
 
 function init() {
 
