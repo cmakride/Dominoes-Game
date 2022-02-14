@@ -92,6 +92,29 @@ align-items: center;
 
 }
 
+#cross-hair{
+  align-items: center;
+  display: flex;
+  border: 1px solid black;
+  flex-direction: column;
+  gap: 20px;
+  font-size: 20px;
+}
+
+#crosshair-grid{
+  display: inline-grid;
+  margin-top: 24px;
+  grid-gap: 0vmin;
+  grid-template-rows: repeat(2, 8vmin);
+  grid-template-columns: repeat(2, 8vmin);
+  justify-content: start;
+  border: 1px solid black;
+
+}
+#crosshair-grid > *{
+  border: 1px solid black;
+}
+
 section.user-display{
 display: flex;
 flex-direction: row;

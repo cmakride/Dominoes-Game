@@ -10,6 +10,8 @@ let player2 = []
 let player3 = []
 let player4 = []
 
+let crossArray = []
+
 let dominoes = []
 // this works showing that if a value of 6 is here 0 horizontal
 let board = new Array(140).fill([null, null])
@@ -17,6 +19,8 @@ let board = new Array(140).fill([null, null])
 
 let rightEnd = 0
 let leftEnd = 0
+let playerRight = 0
+let playerLeft = 0
 
 let currentTurn = 0
 
@@ -33,9 +37,29 @@ const player1Dominoes = document.querySelector("#player-01")
 const player2Dominoes = document.querySelector("#player-02")
 const player3Dominoes = document.querySelector("#player-03")
 const player4Dominoes = document.querySelector("#player-04")
+const crossHairGrid = document.querySelector("#crosshair-grid")
+const crossHairButton = document.querySelector("#rotate")
 
-console.log(gameBoard)
 /*----------------------------- Event Listeners -----------------------------*/
+//event listener for crosshair, if click a dominoe in the user's dominoes, that dominoe will appear on the crosshair and the left and right or top and bottom values will be changed if the button is pressed
+player1Dominoes.addEventListener("click",(evt)=>{
+  evt.target.id
+  //reason doing this is so if click on the space inbetween the pictures so just click on the dominoes
+  if(evt.target.id !== "player-01"){
+    //index 5 of the id string will give the value of the dominoe picked and to be put in the crosshair
+    let tempString = evt.target.id
+    let tempNum = parseInt(tempString[5])
+    let tempArray = player1[tempNum]
+    leftEnd = tempArray[0][0]
+    rightEnd = tempArray[0][1]
+    console.log(leftEnd)
+    console.log(rightEnd)
+    // renderCrossHair()
+}
+})
+
+//An event listener for the rotate button in the cross hair this is what will change the values
+
 /*-------------------------------- Functions --------------------------------*/
 init()
 
@@ -91,7 +115,7 @@ if(isWinner === null && currentTurn !== 1){
  //computerPick()
  //computerPick()
 }
-console.log(currentTurn)
+console.log('CURRENT TURN',currentTurn)
 
 }
 
@@ -113,6 +137,7 @@ function checkWinner(){
   }
 
 }
+
 
 function shuffleDominoes() {
   //choose a random index from dominoes
@@ -261,7 +286,7 @@ function deleteDominoe(num1,num2,array){
       //just have to run link to dominoes again and it should appear on the screen
     }
   })
-  console.log(array)
+
 }
 
 // console.log(player1)
