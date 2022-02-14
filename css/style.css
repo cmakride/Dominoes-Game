@@ -34,7 +34,7 @@ body {
 
 }
 
-#user-01{
+#player-01{
 align-items: center;
   display: flex;
   border: 1px solid black;
@@ -43,7 +43,7 @@ align-items: center;
   font-size: 20px;
 }
 
-#user-01 > * {
+#player-01 > * {
   border: 1px solid black;
 
 }

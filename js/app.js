@@ -6,13 +6,13 @@
 
 
 let player1 = []
-let comp2 = []
-let comp3 = []
-let comp4 = []
+let player2 = []
+let player3 = []
+let player4 = []
 
 let dominoes = []
 // this works showing that if a value of 6 is here 0 horizontal
-let board = new Array(140).fill([null,null])
+let board = new Array(140).fill([null, null])
 
 
 let rightEnd = 0
@@ -26,100 +26,195 @@ let numberPasses = 0
 /*-------------------------------- Variables --------------------------------*/
 /*------------------------ Cached Element References ------------------------*/
 const gameBoard = document.querySelector(".gameBoard")
+const player1Dominoes = document.querySelector("#player-01")
+const player2Dominoes = document.querySelector("#player-02")
+const player3Dominoes = document.querySelector("#player-03")
+const player4Dominoes = document.querySelector("#player-04")
+
 console.log(gameBoard)
 /*----------------------------- Event Listeners -----------------------------*/
 /*-------------------------------- Functions --------------------------------*/
 init()
 
-function init(){
+function init() {
 
-dominoes = [[6,6],[6,5],[6,4],[6,3],[6,2],[6,1],[6,0],
-            [5,5],[5,4],[5,3],[5,2],[5,1],[5,0],
-            [4,4],[4,3],[4,2],[4,1],[4,0],
-            [3,3],[3,2],[3,1],[3,0],
-            [2,2],[2,1],[2,0],
-            [1,1],[1,0],[0,0]]
+  dominoes = [[6,6], [6,5], [6,4], [6,3], [6,2], [6,1], [6,0],
+  [5,5], [5,4], [5,3], [5,2], [5,1], [5,0],
+  [4,4], [4,3], [4,2], [4,1], [4,0],
+  [3,3], [3,2], [3,1], [3,0],
+  [2,2], [2,1], [2,0],
+  [1,1], [1,0], [0,0]]
 
-shuffleDominoes()
-linkDominoesToPlayers()
+  shuffleDominoes()
+  linkDominoesToPlayers()
 
-//when I get back, what is in the array should display on the board
-linkGridToBoard()
-// currentTurn = findDoubleSix()
+  //when I get back, what is in the array should display on the board
+  
+  // currentTurn = findDoubleSix()
+  // linkDominoesToPlayers()
+  // linkGridToBoard()
 
-          
+
 }
 
-function shuffleDominoes(){
-//choose a random index from dominoes
-//iterating through each player and computer's decks of dominoes, total of 4 arrays
-for (let i = 1 ; i < 8 ; i++){
-  let randDominoeIndex = Math.floor(Math.random()*dominoes.length)
-  let dominoePicked = dominoes.splice(randDominoeIndex,1)
-  player1.push(dominoePicked)
+function shuffleDominoes() {
+  //choose a random index from dominoes
+  //iterating through each player and computer's decks of dominoes, total of 4 arrays
+  for (let i = 1; i < 8; i++) {
+    let randDominoeIndex = Math.floor(Math.random() * dominoes.length)
+    let dominoePicked = dominoes.splice(randDominoeIndex, 1)
+    player1.push(dominoePicked)
 
-  randDominoeIndex = Math.floor(Math.random()*dominoes.length)
-  dominoePicked = dominoes.splice(randDominoeIndex,1)
-  comp2.push(dominoePicked)
+    randDominoeIndex = Math.floor(Math.random() * dominoes.length)
+    dominoePicked = dominoes.splice(randDominoeIndex, 1)
+    player2.push(dominoePicked)
 
-  randDominoeIndex = Math.floor(Math.random()*dominoes.length)
-  dominoePicked = dominoes.splice(randDominoeIndex,1)
-  comp3.push(dominoePicked)
+    randDominoeIndex = Math.floor(Math.random() * dominoes.length)
+    dominoePicked = dominoes.splice(randDominoeIndex, 1)
+    player3.push(dominoePicked)
 
-  randDominoeIndex = Math.floor(Math.random()*dominoes.length)
-  dominoePicked = dominoes.splice(randDominoeIndex,1)
-  comp4.push(dominoePicked)
+    randDominoeIndex = Math.floor(Math.random() * dominoes.length)
+    dominoePicked = dominoes.splice(randDominoeIndex, 1)
+    player4.push(dominoePicked)
 
+  }
+  //splice that index from dominoes and store it in a variable. Take out of the dominoe "deck" and put that in each players deck. 
 }
-//splice that index from dominoes and store it in a variable. Take out of the dominoe "deck" and put that in each players deck. 
-}
 
 
-function linkDominoesToPlayers(){
+function linkDominoesToPlayers() {
   //need to link the divs in each players dominoes to the array of dominoes for each player
   //loop 
-  for(i = 0 ; i < 7 ; i++ ){
+  //First Clear and delete each div element from each player and recreate based on their corresponding
+    //arrays
+  while(player1Dominoes.firstChild){
+    player1Dominoes.removeChild(player1Dominoes.firstChild)
+  }
+  while(player2Dominoes.firstChild){
+    player2Dominoes.removeChild(player2Dominoes.firstChild)
+  }
+  while(player3Dominoes.firstChild){
+    player3Dominoes.removeChild(player3Dominoes.firstChild)
+  }
+  while(player4Dominoes.firstChild){
+    player4Dominoes.removeChild(player4Dominoes.firstChild)
+  }
+
+  for (i = 0; i < player1.length; i++) {
     //cache the current dominoe to update what the div value is for each player
     //Linking Users Dominos to Users Div Dominoes
-    const currentUserDom = document.querySelector(`#user-d-${i}`)
-    let currentUserString = player1[i].join("|")
-    
-    
+    let newDiv = document.createElement('div')
+    newDiv.id = `p1-d-${i}`
+    player1Dominoes.appendChild(newDiv)
+    const currentUserDom = document.querySelector(`#p1-d-${i}`)
+    let currentUserString = player1[i].toString()
     currentUserDom.textContent = currentUserString
+  }
+  
 
-    const currentComp2Dom = document.querySelector(`#comp2-d-${i}`)
-    let currentComp2String = comp2[i].toString()
+  for (i = 0; i < player2.length; i++) {
+    let newDiv = document.createElement('div')
+    newDiv.id = `p2-d-${i}`
+    player2Dominoes.appendChild(newDiv)
+    const currentComp2Dom = document.querySelector(`#p2-d-${i}`)
+    let currentComp2String = player2[i].toString()
     currentComp2Dom.textContent = currentComp2String
+  }
 
-    const currentComp3Dom = document.querySelector(`#comp3-d-${i}`)
-    let currentComp3String = comp3[i].toString()
+  for (i = 0; i < player3.length; i++) {
+    let newDiv = document.createElement('div')
+    newDiv.id = `p3-d-${i}`
+    player3Dominoes.appendChild(newDiv)
+    const currentComp3Dom = document.querySelector(`#p3-d-${i}`)
+    let currentComp3String = player3[i].toString()
     currentComp3Dom.textContent = currentComp3String
+  }
 
-    const currentComp4Dom = document.querySelector(`#comp4-d-${i}`)
-    let currentComp4String = comp4[i].toString()
+  for (i = 0; i < player4.length; i++) {
+    let newDiv = document.createElement('div')
+    newDiv.id = `p4-d-${i}`
+    player4Dominoes.appendChild(newDiv)
+    const currentComp4Dom = document.querySelector(`#p4-d-${i}`)
+    let currentComp4String = player4[i].toString()
     currentComp4Dom.textContent = currentComp4String
   }
-    // get the string value extracted 
-    //apply that string value to the currentDominoe
-  
+  // get the string value extracted 
+  //apply that string value to the currentDominoe
 }
 
-function linkGridToBoard(){}
-for(let i = 0 ; i < board.length; i ++){
-  if(board[i]===null){
+function linkGridToBoard(){ 
+for (let i = 0; i < board.length; i++) {
+  if (board[i] === null) {
     gameBoard.children[i].textContent = ""
-  }else{
+  } else {
     //number of dominoe and 0 for horizontal and 1 for vertical
     gameBoard.children[i].style.backgroundImage = `url('./images/Dominoes_${board[i][0]}_${board[i][1]}.png')`
   }
-//need to make each dominoe have a third element for vertical or horizontal, remember each element in the board array represents one number so have to make a function that will put a dominoe and place a number in each cell so each element in the board array has two values one for the number and one for the position
-  
-
-
-
-
-
 }
+  //need to make each dominoe have a third element for vertical or horizontal, remember each element in the board array represents one number so have to make a function that will put a dominoe and place a number in each cell so each element in the board array has two values one for the number and one for the position
+}
+
+function findDoubleSix() {
+  let winner = 0
+
+  player1.forEach((array) => {
+    if (array.join("") === "6,6") {
+      winner = 1
+      deleteDominoe(6,6,player1)
+    }
+    
+  })
+  player2.forEach((array) => {
+    if (array.join("") === "6,6") {
+      winner = 2
+      deleteDominoe(6,6,player2)
+    }
+    
+  })
+  player3.forEach((array) => {
+    if (array.join("") === "6,6") {
+      winner = 3
+      deleteDominoe(6,6,player3)
+    }
+    
+  })
+  player4.forEach((array) => {
+    if (array.join("") === "6,6") {
+      winner = 4
+      deleteDominoe(6,6,player4)
+    }
+    
+  })
+  //need to subtract from that players dominoes
+  //need to place the 6,6 on the board.
+  board[76] = [6,0]
+  board[77] = [6,0]
+  
+  console.log(winner+1)
+  return (winner+1)
+}
+//when get back add an if else for the turn in render which will be called right after find dominoes
+//make a function to delete dominoe [num,num,arrayToBeModified] 
+
+function deleteDominoe(num1,num2,array){
+  array.forEach((dom,idx) => {
+    if (dom.join("") === `${num1},${num2}`) {
+      
+      array.splice(idx,1)
+      //just have to run link to dominoes again and it should appear on the screen
+      
+
+      
+    }
+    
+  })
+  console.log(array)
+}
+
+// console.log(player1)
+// console.log(player2)
+// console.log(player3)
+// console.log(player4)
 
 
 
