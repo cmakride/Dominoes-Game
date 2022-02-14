@@ -48,10 +48,10 @@ function init() {
   shuffleDominoes()
   linkDominoesToPlayers()
 
-  //when I get back, what is in the array should display on the board
-  
-  // currentTurn = findDoubleSix()
-  // linkDominoesToPlayers()
+  currentTurn = findDoubleSix()
+  console.log(currentTurn)
+
+   linkDominoesToPlayers()
   // linkGridToBoard()
 
 
@@ -190,7 +190,6 @@ function findDoubleSix() {
   board[76] = [6,0]
   board[77] = [6,0]
   
-  console.log(winner+1)
   return (winner+1)
 }
 //when get back add an if else for the turn in render which will be called right after find dominoes
@@ -199,14 +198,9 @@ function findDoubleSix() {
 function deleteDominoe(num1,num2,array){
   array.forEach((dom,idx) => {
     if (dom.join("") === `${num1},${num2}`) {
-      
       array.splice(idx,1)
       //just have to run link to dominoes again and it should appear on the screen
-      
-
-      
     }
-    
   })
   console.log(array)
 }
