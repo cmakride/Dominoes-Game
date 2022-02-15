@@ -205,7 +205,8 @@ function computer2Pick() {
   //console.log("RANDOM INDEX = ",num)
   console.log(options[num])
   placeDominoe((options[num]))
-  //After Outcomes find out placeDominoeOnBoard() and DeleteDominoe() then these functions are complete
+  deleteDominoe(options[num][0],options[num][1],player2)
+  linkDominoesToPlayers()
   }
   else{
     console.log("PLAYER 2 HAS PASSED")
@@ -230,6 +231,8 @@ function computer3Pick() {
     //console.log("RANDOM INDEX = ",num)
     console.log(options[num])//sends the picked dominoe to the board
     placeDominoe((options[num]))
+    deleteDominoe(options[num][0],options[num][1],player3)
+    linkDominoesToPlayers()
     }
     else{
       console.log("PLAYER 3 HAS PASSED")
@@ -251,9 +254,13 @@ function computer4Pick() {
   if(options.length !== 0){
     let num = Math.floor(Math.random()*options.length)
     //console.log("RANDOM INDEX = ",num)
-    console.log(options[num])
+    console.log("FIRST INDEX",options[num])
     placeDominoe((options[num]))
-    //delete dominoe
+    //delete that dominoe from the players hand because it is now on the board
+    deleteDominoe(options[num][0],options[num][1],player4)
+    //reload the player's hands
+    linkDominoesToPlayers()
+    
     }
     else{
       console.log("PLAYER 4 HAS PASSED")
