@@ -17,8 +17,8 @@ let dominoes = []
 let board = new Array(140).fill([null, null])
 
 
-let rightEnd = 0
-let leftEnd = 0
+let rightEnd = null
+let leftEnd = null
 
 let playerRight = null
 let playerLeft = null
@@ -52,16 +52,16 @@ const crossHairButton = document.querySelector("#rotate")
 
 /*----------------------------- Event Listeners -----------------------------*/
 //event listener for crosshair, if click a dominoe in the user's dominoes, that dominoe will appear on the crosshair and the left and right or top and bottom values will be changed if the button is pressed
-player1Dominoes.addEventListener("click",(evt)=>{
+player1Dominoes.addEventListener("click", (evt) => {
   //need to reset everything
-    playerRight = null
-    playerLeft = null
-    playerTop = null
-    playerBottom = null
-    axis = -1
+  playerRight = null
+  playerLeft = null
+  playerTop = null
+  playerBottom = null
+  axis = -1
 
   //reason doing this is so if click on the space inbetween the pictures so just click on the dominoes
-  if(evt.target.id !== "player-01"){
+  if (evt.target.id !== "player-01") {
     //index 5 of the id string will give the value of the dominoe picked and to be put in the crosshair
     let tempString = evt.target.id
     let tempNum = parseInt(tempString[5])
@@ -71,26 +71,26 @@ player1Dominoes.addEventListener("click",(evt)=>{
     // console.log('left end: ',playerLeft)
     // console.log('right end: ',playerRight)
     renderCrossHair()
-}
+  }
 })
 
-crossHairButton.addEventListener("click",(evt)=>{
-//if horizontal change to vertical
-  if(axis === -1){
+crossHairButton.addEventListener("click", (evt) => {
+  //if horizontal change to vertical
+  if (axis === -1) {
     playerTop = playerLeft
     playerBottom = playerRight
     playerLeft = null
-    playerRight = null   
-}
-//if vertical change to horizontal and rotate
-if(axis === 1){
-  playerLeft = playerBottom
-  playerRight = playerTop
-  playerTop = null
-  playerBottom = null
-}
-axis*=-1
-renderCrossHair()
+    playerRight = null
+  }
+  //if vertical change to horizontal and rotate
+  if (axis === 1) {
+    playerLeft = playerBottom
+    playerRight = playerTop
+    playerTop = null
+    playerBottom = null
+  }
+  axis *= -1
+  renderCrossHair()
 })
 
 //An event listener for the rotate button in the cross hair this is what will change the values
@@ -98,21 +98,21 @@ renderCrossHair()
 /*-------------------------------- Functions --------------------------------*/
 init()
 
-function renderCrossHair(){
-  
-    console.log('Left end: ',playerLeft)
-    console.log('Right end: ',playerRight)
-    console.log('Top end: ',playerTop)
-    console.log('Bottom end: ',playerBottom)
-  
+function renderCrossHair() {
+
+  console.log('Left end: ', playerLeft)
+  console.log('Right end: ', playerRight)
+  console.log('Top end: ', playerTop)
+  console.log('Bottom end: ', playerBottom)
+
   //horizontal axis
-  if(axis === -1){
+  if (axis === -1) {
     crossHairSq0.style.backgroundImage = `url('./images/Dominoes_${playerLeft}_0.png')`
     crossHairSq1.style.backgroundImage = `url('./images/Dominoes_${playerRight}_0.png')`
     crossHairSq2.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
   }
   //vertical
-  if(axis === 1){
+  if (axis === 1) {
     crossHairSq0.style.backgroundImage = `url('./images/Dominoes_${playerTop}_1.png')`
     crossHairSq2.style.backgroundImage = `url('./images/Dominoes_${playerBottom}_1.png')`
     crossHairSq1.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
@@ -124,71 +124,108 @@ function init() {
   isWinner = null
   numberPasses = 0
 
-  dominoes = [[6,6], [6,5], [6,4], [6,3], [6,2], [6,1], [6,0],
-  [5,5], [5,4], [5,3], [5,2], [5,1], [5,0],
-  [4,4], [4,3], [4,2], [4,1], [4,0],
-  [3,3], [3,2], [3,1], [3,0],
-  [2,2], [2,1], [2,0],
-  [1,1], [1,0], [0,0]]
+  dominoes = [[6, 6], [6, 5], [6, 4], [6, 3], [6, 2], [6, 1], [6, 0],
+  [5, 5], [5, 4], [5, 3], [5, 2], [5, 1], [5, 0],
+  [4, 4], [4, 3], [4, 2], [4, 1], [4, 0],
+  [3, 3], [3, 2], [3, 1], [3, 0],
+  [2, 2], [2, 1], [2, 0],
+  [1, 1], [1, 0], [0, 0]]
 
   shuffleDominoes()
   linkDominoesToPlayers()
 
   currentTurn = findDoubleSix()
-  
+
 
   render()
+  play()
 
 
 }
 
-function render(){
-//refresh the player's dominoes
-linkDominoesToPlayers()
-//Link the gameboard array to the grid in the html
-linkGridToBoard()
-
-//displaying the message of which player's turn it is
-if(currentTurn === 5){
-  currentTurn = 1
+function play(){
+  while(isWinner === null && currentTurn !== 1) {
+    if (currentTurn === 2) {
+      computer2Pick()
+      currentTurn++
+    }
+    if (currentTurn === 3) {
+      computer3Pick()
+      currentTurn++
+    }
+    if (currentTurn === 4) {
+      computer4Pick()
+      currentTurn = 1
+    }
+  }
 }
 
-checkWinner()
-if(isWinner === null){
-  messageEL.textContent = `Game still in Progress it is Player ${currentTurn}'s Turn`
+function render() {
+  //refresh the player's dominoes
+  linkDominoesToPlayers()
+  //Link the gameboard array to the grid in the html
+  linkGridToBoard()
+
+  //displaying the message of which player's turn it is
+  if (currentTurn === 5) {
+    currentTurn = 1
+  }
+
+  checkWinner()
+  if (isWinner === null) {
+    messageEL.textContent = `Game still in Progress it is Player ${currentTurn}'s Turn`
+  }
+
+  if (isWinner === 1 || isWinner === 2 || isWinner === 3 || isWinner === 4) {
+    messageEL.textContent = `${isWinner} is the Winner!`
+  }
+
+  if (isWinner === 0) {
+    messageEL.textContent = `IT IS A TIE!`
+  }
+
+  
+  console.log('CURRENT TURN', currentTurn)
+
 }
 
-if(isWinner === 1 || isWinner === 2 || isWinner === 3 || isWinner === 4){
-  messageEL.textContent = `${isWinner} is the Winner!`
-}
+console.log(rightEnd, leftEnd)
 
-if(isWinner === 0){
-  messageEL.textContent = `IT IS A TIE!`
-}
-
-if(isWinner === null && currentTurn !== 1){
- //computerPick()
- //computerPick()
- //computerPick()
-}
-console.log('CURRENT TURN',currentTurn)
+function computer2Pick() {
+  //get an array of all of the options if options.length = 0
+  let options = player2
+  console.log("Computer 2 Picking",options)
 
 }
+function computer3Pick() {
+  //get an array of all of the options if options.length = 0
+  let options = player3
+  console.log("Computer 3 Picking",options)
 
-function checkWinner(){
-  if(player1.length === 0){
+}
+function computer4Pick() {
+  //get an array of all of the options if options.length = 0
+  let options = player4
+  console.log("Computer 4 Picking",options)
+
+}
+
+function placeDominoe() { }
+
+function checkWinner() {
+  if (player1.length === 0) {
     isWinner = 1
   }
-  if(player2.length === 0){
+  if (player2.length === 0) {
     isWinner = 2
   }
-  if(player3.length === 0){
+  if (player3.length === 0) {
     isWinner = 3
   }
-  if(player4.length === 0){
+  if (player4.length === 0) {
     isWinner = 4
   }
-  if(numberPasses === 4){
+  if (numberPasses === 4) {
     isWinner = 0
   }
 
@@ -224,17 +261,17 @@ function linkDominoesToPlayers() {
   //need to link the divs in each players dominoes to the array of dominoes for each player
   //loop 
   //First Clear and delete each div element from each player and recreate based on their corresponding
-    //arrays
-  while(player1Dominoes.firstChild){
+  //arrays
+  while (player1Dominoes.firstChild) {
     player1Dominoes.removeChild(player1Dominoes.firstChild)
   }
-  while(player2Dominoes.firstChild){
+  while (player2Dominoes.firstChild) {
     player2Dominoes.removeChild(player2Dominoes.firstChild)
   }
-  while(player3Dominoes.firstChild){
+  while (player3Dominoes.firstChild) {
     player3Dominoes.removeChild(player3Dominoes.firstChild)
   }
-  while(player4Dominoes.firstChild){
+  while (player4Dominoes.firstChild) {
     player4Dominoes.removeChild(player4Dominoes.firstChild)
   }
 
@@ -248,7 +285,7 @@ function linkDominoesToPlayers() {
     let currentUserString = player1[i].toString()
     currentUserDom.textContent = currentUserString
   }
-  
+
 
   for (i = 0; i < player2.length; i++) {
     let newDiv = document.createElement('div')
@@ -280,15 +317,15 @@ function linkDominoesToPlayers() {
   //apply that string value to the currentDominoe
 }
 
-function linkGridToBoard(){ 
-for (let i = 0; i < board.length; i++) {
-  if (board[i] === null) {
-    gameBoard.children[i].textContent = ""
-  } else {
-    //number of dominoe and 0 for horizontal and 1 for vertical
-    gameBoard.children[i].style.backgroundImage = `url('./images/Dominoes_${board[i][0]}_${board[i][1]}.png')`
+function linkGridToBoard() {
+  for (let i = 0; i < board.length; i++) {
+    if (board[i] === null) {
+      gameBoard.children[i].textContent = ""
+    } else {
+      //number of dominoe and 0 for horizontal and 1 for vertical
+      gameBoard.children[i].style.backgroundImage = `url('./images/Dominoes_${board[i][0]}_${board[i][1]}.png')`
+    }
   }
-}
   //need to make each dominoe have a third element for vertical or horizontal, remember each element in the board array represents one number so have to make a function that will put a dominoe and place a number in each cell so each element in the board array has two values one for the number and one for the position
 }
 
@@ -298,47 +335,47 @@ function findDoubleSix() {
   player1.forEach((array) => {
     if (array.join("") === "6,6") {
       winner = 1
-      deleteDominoe(6,6,player1)
+      deleteDominoe(6, 6, player1)
     }
-    
+
   })
   player2.forEach((array) => {
     if (array.join("") === "6,6") {
       winner = 2
-      deleteDominoe(6,6,player2)
+      deleteDominoe(6, 6, player2)
     }
-    
+
   })
   player3.forEach((array) => {
     if (array.join("") === "6,6") {
       winner = 3
-      deleteDominoe(6,6,player3)
+      deleteDominoe(6, 6, player3)
     }
-    
+
   })
   player4.forEach((array) => {
     if (array.join("") === "6,6") {
       winner = 4
-      deleteDominoe(6,6,player4)
+      deleteDominoe(6, 6, player4)
     }
-    
+
   })
   //need to subtract from that players dominoes
   //need to place the 6,6 on the board.
-  board[76] = [6,0]
-  board[77] = [6,0]
+  board[76] = [6, 0]
+  board[77] = [6, 0]
   leftEnd = 6
   rightEnd = 6
-  
-  return (winner+1)
+
+  return (winner + 1)
 }
 //when get back add an if else for the turn in render which will be called right after find dominoes
 //make a function to delete dominoe [num,num,arrayToBeModified] 
 
-function deleteDominoe(num1,num2,array){
-  array.forEach((dom,idx) => {
+function deleteDominoe(num1, num2, array) {
+  array.forEach((dom, idx) => {
     if (dom.join("") === `${num1},${num2}`) {
-      array.splice(idx,1)
+      array.splice(idx, 1)
       //just have to run link to dominoes again and it should appear on the screen
     }
   })
