@@ -249,7 +249,7 @@ function computer4Pick() {
     options.push(dominoe[0])
     }
   })
-  console.log("Computer 4 Picking. OPTIONS: ",options)
+  
 
   if(options.length !== 0){
     let num = Math.floor(Math.random()*options.length)
@@ -272,6 +272,11 @@ function computer4Pick() {
 }
 
 //console.log(board[leftIdx+1][0] === null)
+console.log("RIGHT END: ",rightEnd)
+console.log("RIGHT IDX: ",rightIdx)
+console.log("LEFT END: ",leftEnd)
+console.log("LEFT IDX: ",leftIdx)
+
 
 
 
@@ -279,7 +284,7 @@ function placeDominoe(dominoe) {
   let domL = dominoe[0]
   let domR = dominoe[1]
 
-  //doing the left side first, going to check multiple instances
+  //doing the left side first, going to check multiple instances, Left end Horizontal
   if(leftEnd === domL && board[leftIdx-1][0] === null && board[leftIdx-2][0] === null){
     //place the dominoe!
     board[leftIdx-1] = [domL,0]
@@ -293,7 +298,7 @@ function placeDominoe(dominoe) {
     leftEnd = domL
     leftIdx = leftIdx-2
   }
-  //now for right end
+  //now for right end Horizontal
   else if (rightEnd === domL && board[rightIdx+1][0] === null && board[rightIdx+2][0] === null){
     board[rightIdx+1] = [domL,0]
     board[rightIdx+2] = [domR,0]
@@ -305,6 +310,67 @@ function placeDominoe(dominoe) {
     board[rightIdx+2] = [domL,0]
     rightEnd = domL
     rightIdx = rightIdx+2
+  }
+  //end of Horizontal
+
+  //left side vertical up
+  else if(leftEnd === domL && board[leftIdx-1][0] === null && board[leftIdx-15][0] === null){
+    board[leftIdx-1] = [domL,1]
+    board[leftIdx-15] = [domR,1]
+    leftEnd = domR
+    leftIdx = leftIdx-15
+  }
+  //left side vertical up, right side dominoe matches left side
+  else if(leftEnd === domR && board[leftIdx-1][0] === null && board[leftIdx-15][0] === null){
+    board[leftIdx-1] = [domR,1]
+    board[leftIdx-15] = [domL,1]
+    leftEnd = domL
+    leftIdx = leftIdx-15
+  }
+
+  //left side vertical down Left side matches
+  else if(leftEnd === domL && board[leftIdx-1][0] === null && board[leftIdx+13][0] === null){
+    board[leftIdx-1] = [domL,1]
+    board[leftIdx+13] = [domR,1]
+    leftEnd = domR
+    leftIdx = leftIdx+13
+  }
+
+  else if(leftEnd === domR && board[leftIdx-1][0] === null && board[leftIdx+13][0] === null){
+    board[leftIdx-1] = [domR,1]
+    board[leftIdx+13] = [domL,1]
+    leftEnd = domL
+    leftIdx = leftIdx+13
+  }
+
+  //?Right side vertical up
+  else if (rightEnd === domL && board[rightIdx+1][0] === null && board[rightIdx-13][0] === null){
+    board[rightIdx+1] = [domL,1]
+    board[rightIdx-13] = [domR,1]
+    rightEnd = domR
+    rightIdx = rightIdx-13
+  }
+  //right side vertical up, right side dominoe matches right side
+  else if (rightEnd === domR && board[rightIdx+1][0] === null && board[rightIdx-13][0] === null){
+    board[rightIdx+1] = [domR,1]
+    board[rightIdx-13] = [domL,1]
+    rightEnd = domL
+    rightIdx = rightIdx-13
+  }
+
+  //right side vertical down Left side matches rightend
+  else if (rightEnd === domL && board[rightIdx+1][0] === null && board[rightIdx+15][0] === null){
+    board[rightIdx+1] = [domL,1]
+    board[rightIdx+15] = [domR,1]
+    rightEnd = domR
+    rightIdx = rightIdx+15
+  }
+  //right side vertical down right side dominoe matches rightend
+  else if (rightEnd === domR && board[rightIdx+1][0] === null && board[rightIdx+15][0] === null){
+    board[rightIdx+1] = [domR,1]
+    board[rightIdx+15] = [domL,1]
+    rightEnd = domL
+    rightIdx = rightIdx+15
   }
 }
 
