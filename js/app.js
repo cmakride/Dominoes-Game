@@ -146,16 +146,19 @@ function init() {
 function play(){
   while(isWinner === null && currentTurn !== 1) {
     if (currentTurn === 2) {
-      computer2Pick()
       currentTurn++
+      computer2Pick()
+      
     }
     if (currentTurn === 3) {
-      computer3Pick()
       currentTurn++
+      computer3Pick()
+      
     }
     if (currentTurn === 4) {
-      computer4Pick()
       currentTurn = 1
+      computer4Pick()
+      
     }
   }
 }
@@ -195,18 +198,21 @@ function computer2Pick() {
   //get an array of all of the options if options.length = 0
   let options = player2
   console.log("Computer 2 Picking",options)
+  render()
 
 }
 function computer3Pick() {
   //get an array of all of the options if options.length = 0
   let options = player3
   console.log("Computer 3 Picking",options)
+  render()
 
 }
 function computer4Pick() {
   //get an array of all of the options if options.length = 0
   let options = player4
   console.log("Computer 4 Picking",options)
+  render()
 
 }
 
