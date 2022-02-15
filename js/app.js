@@ -263,7 +263,11 @@ function computer4Pick() {
 
   render()
 }
-console.log(board[leftIdx][0] === null)
+
+//console.log(board[leftIdx+1][0] === null)
+
+
+
 function placeDominoe(dominoe) { 
   let domL = dominoe[0]
   let domR = dominoe[1]
@@ -273,12 +277,34 @@ function placeDominoe(dominoe) {
     //place the dominoe!
     board[leftIdx-1] = [domL,0]
     board[leftIdx-2] = [domR,0]
+    leftEnd = domR
+    leftIdx = leftIdx-2
   }
   else if (leftEnd === domR && board[leftIdx-1][0] === null && board[leftIdx-2][0] === null){
     board[leftIdx-1] = [domR,0]
     board[leftIdx-2] = [domL,0]
+    leftEnd = domL
+    leftIdx = leftIdx-2
+  }
+  //now for right end
+  else if (rightEnd === domL && board[rightIdx+1][0] === null && board[rightIdx+2][0] === null){
+    board[rightIdx+1] = [domL,0]
+    board[rightIdx+2] = [domR,0]
+    rightEnd = domR
+    rightIdx = rightIdx+2
+  }
+  else if (rightEnd === domR && board[rightIdx+1][0] === null && board[rightIdx+2][0] === null){
+    board[rightIdx+1] = [domR,0]
+    board[rightIdx+2] = [domL,0]
+    rightEnd = domL
+    rightIdx = rightIdx+2
   }
 }
+
+
+
+
+
 
 function checkWinner() {
   if (player1.length === 0) {
