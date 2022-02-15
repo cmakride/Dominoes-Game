@@ -143,22 +143,20 @@ function init() {
 
 }
 
+//play() will be invoked after each time the user picks a dominoe. 
 function play(){
   while(isWinner === null && currentTurn !== 1) {
     if (currentTurn === 2) {
       currentTurn++
       computer2Pick()
-      
     }
     if (currentTurn === 3) {
       currentTurn++
       computer3Pick()
-      
     }
     if (currentTurn === 4) {
       currentTurn = 1
       computer4Pick()
-      
     }
   }
 }
@@ -178,42 +176,85 @@ function render() {
   if (isWinner === null) {
     messageEL.textContent = `Game still in Progress it is Player ${currentTurn}'s Turn`
   }
-
   if (isWinner === 1 || isWinner === 2 || isWinner === 3 || isWinner === 4) {
     messageEL.textContent = `${isWinner} is the Winner!`
   }
-
   if (isWinner === 0) {
     messageEL.textContent = `IT IS A TIE!`
   }
-
-  
   console.log('CURRENT TURN', currentTurn)
-
 }
 
-console.log(rightEnd, leftEnd)
+// console.log(rightEnd, leftEnd)
 
 function computer2Pick() {
   //get an array of all of the options if options.length = 0
-  let options = player2
-  console.log("Computer 2 Picking",options)
+  //if a dominoe has one number that matches right or left end add that dominoe to the options array
+  let options = []
+  player2.forEach((dominoe)=>{
+    if(dominoe[0][0] === leftEnd || dominoe[0][0]=== rightEnd || dominoe[0][1]=== leftEnd || dominoe[0][1]===rightEnd){
+    options.push(dominoe[0])
+    }
+  })
+  console.log("Computer 2 Picking. OPTIONS: ",options)
+  //first picks a random dominoe
+  if(options.length !== 0){
+  let num = Math.floor(Math.random()*options.length)
+  console.log("RANDOM INDEX = ",num)
+  console.log(options[num])
+  }
+  else{
+    console.log("PLAYER 2 HAS PASSED")
+    numberPasses++
+    console.log(numberPasses)
+  }
+  //have computer player pick one of the dominoes based on length
   render()
-
 }
+
 function computer3Pick() {
-  //get an array of all of the options if options.length = 0
-  let options = player3
-  console.log("Computer 3 Picking",options)
-  render()
+  let options = []
+  player3.forEach((dominoe)=>{
+    if(dominoe[0][0] === leftEnd || dominoe[0][0]=== rightEnd || dominoe[0][1]=== leftEnd || dominoe[0][1]===rightEnd){
+    options.push(dominoe[0])
+    }
+  })
+  console.log("Computer 3 Picking. OPTIONS: ",options)
 
+  if(options.length !== 0){
+    let num = Math.floor(Math.random()*options.length)
+    console.log("RANDOM INDEX = ",num)
+    console.log(options[num])
+    }
+    else{
+      console.log("PLAYER 3 HAS PASSED")
+      numberPasses++
+      console.log(numberPasses)
+    }
+  render()
 }
-function computer4Pick() {
-  //get an array of all of the options if options.length = 0
-  let options = player4
-  console.log("Computer 4 Picking",options)
-  render()
 
+function computer4Pick() {
+  let options = []
+  player4.forEach((dominoe)=>{
+    if(dominoe[0][0] === leftEnd || dominoe[0][0]=== rightEnd || dominoe[0][1]=== leftEnd || dominoe[0][1]===rightEnd){
+    options.push(dominoe[0])
+    }
+  })
+  console.log("Computer 4 Picking. OPTIONS: ",options)
+
+  if(options.length !== 0){
+    let num = Math.floor(Math.random()*options.length)
+    console.log("RANDOM INDEX = ",num)
+    console.log(options[num])
+    }
+    else{
+      console.log("PLAYER 4 HAS PASSED")
+      numberPasses++
+      console.log(numberPasses)
+    }
+
+  render()
 }
 
 function placeDominoe() { }
