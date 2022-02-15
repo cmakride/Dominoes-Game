@@ -20,10 +20,10 @@ let board = new Array(140).fill([null, null])
 let rightEnd = 0
 let leftEnd = 0
 
-let playerRight = 0
-let playerLeft = 0
-let playerTop = 0
-let playerBottom = 0
+let playerRight = null
+let playerLeft = null
+let playerTop = null
+let playerBottom = null
 
 let currentTurn = 0
 
@@ -53,7 +53,13 @@ const crossHairButton = document.querySelector("#rotate")
 /*----------------------------- Event Listeners -----------------------------*/
 //event listener for crosshair, if click a dominoe in the user's dominoes, that dominoe will appear on the crosshair and the left and right or top and bottom values will be changed if the button is pressed
 player1Dominoes.addEventListener("click",(evt)=>{
-  
+  //need to reset everything
+    playerRight = null
+    playerLeft = null
+    playerTop = null
+    playerBottom = null
+    axis = -1
+
   //reason doing this is so if click on the space inbetween the pictures so just click on the dominoes
   if(evt.target.id !== "player-01"){
     //index 5 of the id string will give the value of the dominoe picked and to be put in the crosshair
@@ -73,15 +79,15 @@ crossHairButton.addEventListener("click",(evt)=>{
   if(axis === -1){
     playerTop = playerLeft
     playerBottom = playerRight
-    playerLeft = 0
-    playerRight = 0   
+    playerLeft = null
+    playerRight = null   
 }
 //if vertical change to horizontal and rotate
 if(axis === 1){
   playerLeft = playerBottom
   playerRight = playerTop
-  playerTop = 0
-  playerBottom = 0
+  playerTop = null
+  playerBottom = null
 }
 axis*=-1
 renderCrossHair()
@@ -93,10 +99,7 @@ renderCrossHair()
 init()
 
 function renderCrossHair(){
-  //clear the crosshair grid
-  crossHairSq0.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
-  crossHairSq1.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
-  crossHairSq2.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
+  
     console.log('Left end: ',playerLeft)
     console.log('Right end: ',playerRight)
     console.log('Top end: ',playerTop)
@@ -106,11 +109,13 @@ function renderCrossHair(){
   if(axis === -1){
     crossHairSq0.style.backgroundImage = `url('./images/Dominoes_${playerLeft}_0.png')`
     crossHairSq1.style.backgroundImage = `url('./images/Dominoes_${playerRight}_0.png')`
+    crossHairSq2.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
   }
   //vertical
   if(axis === 1){
     crossHairSq0.style.backgroundImage = `url('./images/Dominoes_${playerTop}_1.png')`
     crossHairSq2.style.backgroundImage = `url('./images/Dominoes_${playerBottom}_1.png')`
+    crossHairSq1.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
   }
 }
 
