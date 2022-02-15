@@ -19,6 +19,8 @@ let board = new Array(140).fill([null, null])
 
 let rightEnd = null
 let leftEnd = null
+let rightIdx = null
+let leftIdx = null
 
 let playerRight = null
 let playerLeft = null
@@ -200,15 +202,17 @@ function computer2Pick() {
   //first picks a random dominoe
   if(options.length !== 0){
   let num = Math.floor(Math.random()*options.length)
-  console.log("RANDOM INDEX = ",num)
+  //console.log("RANDOM INDEX = ",num)
   console.log(options[num])
+  placeDominoe((options[num]))
+  //After Outcomes find out placeDominoeOnBoard() and DeleteDominoe() then these functions are complete
   }
   else{
     console.log("PLAYER 2 HAS PASSED")
     numberPasses++
     console.log(numberPasses)
   }
-  //have computer player pick one of the dominoes based on length
+  // placeDominoeOnBoard()//have computer player pick one of the dominoes based on length
   render()
 }
 
@@ -223,8 +227,9 @@ function computer3Pick() {
 
   if(options.length !== 0){
     let num = Math.floor(Math.random()*options.length)
-    console.log("RANDOM INDEX = ",num)
-    console.log(options[num])
+    //console.log("RANDOM INDEX = ",num)
+    console.log(options[num])//sends the picked dominoe to the board
+    placeDominoe((options[num]))
     }
     else{
       console.log("PLAYER 3 HAS PASSED")
@@ -245,8 +250,10 @@ function computer4Pick() {
 
   if(options.length !== 0){
     let num = Math.floor(Math.random()*options.length)
-    console.log("RANDOM INDEX = ",num)
+    //console.log("RANDOM INDEX = ",num)
     console.log(options[num])
+    placeDominoe((options[num]))
+    //delete dominoe
     }
     else{
       console.log("PLAYER 4 HAS PASSED")
@@ -256,8 +263,22 @@ function computer4Pick() {
 
   render()
 }
+console.log(board[leftIdx][0] === null)
+function placeDominoe(dominoe) { 
+  let domL = dominoe[0]
+  let domR = dominoe[1]
 
-function placeDominoe() { }
+  //doing the left side first, going to check multiple instances
+  if(leftEnd === domL && board[leftIdx-1][0] === null && board[leftIdx-2][0] === null){
+    //place the dominoe!
+    board[leftIdx-1] = [domL,0]
+    board[leftIdx-2] = [domR,0]
+  }
+  else if (leftEnd === domR && board[leftIdx-1][0] === null && board[leftIdx-2][0] === null){
+    board[leftIdx-1] = [domR,0]
+    board[leftIdx-2] = [domL,0]
+  }
+}
 
 function checkWinner() {
   if (player1.length === 0) {
@@ -413,6 +434,8 @@ function findDoubleSix() {
   board[77] = [6, 0]
   leftEnd = 6
   rightEnd = 6
+  leftIdx = 76
+  rightIdx = 77
 
   return (winner + 1)
 }
