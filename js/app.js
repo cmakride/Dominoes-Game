@@ -106,7 +106,7 @@ if(currentTurn === 1){
   let idx = parseInt(numArray.join(''))
 
   
-//there has to be something in the crosshair
+//there has to be something in the crosshair for this to happen because crosshair updates the player right/left or top/bottom values
   if(playerRight !== null){
     //this square is to the right horizontally 
     if(board[idx][0] === null && rightIdx === idx-1 && board[idx+1][0] === null && playerLeft === rightEnd){
@@ -119,6 +119,7 @@ if(currentTurn === 1){
       currentTurn++
       deleteDominoe(playerRight,playerLeft,player1)
       render()
+      play()
     }
     //this square is to the left horizontally
     if(board[idx][0] === null && leftIdx === idx+1 && board[idx-1][0] === null && playerRight === leftEnd){
@@ -131,10 +132,11 @@ if(currentTurn === 1){
       currentTurn++
       deleteDominoe(playerRight,playerLeft,player1)
       render()
+      play()
     }
   }
   if(playerTop !== null){
-    //putting the dominoe vertically to the right and up
+    //putting the dominoe vertically to the right and down
     if(board[idx][0] === null && rightIdx === idx-1 && board[idx+14][0] === null && playerTop === rightEnd){
       //place dominoe on the right side vertical down
       console.log("TO THE RIGHT PLACING VERTICAL DOWN")
@@ -146,8 +148,51 @@ if(currentTurn === 1){
       currentTurn++
       deleteDominoe(playerTop,playerBottom,player1)
       render()
+      play()
 
     }
+    //putting the dominoe vertically to the right and up
+    else if(board[idx][0] === null && rightIdx === idx-1 && board[idx-14][0] === null && playerBottom === rightEnd){
+      console.log("TO THE RIGHT PLACING VERTICAL UP")
+      board[idx] = [playerBottom,1]
+      board[idx-14] = [playerTop,1]
+      rightEnd = playerTop
+      rightIdx = idx-14
+      console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+      currentTurn++
+      deleteDominoe(playerTop,playerBottom,player1)
+      render()
+      play()
+
+    }
+    //placing left side and up
+    if(board[idx][0] === null && leftIdx === idx+1 && board[idx-14][0] === null && playerBottom === leftEnd){
+      console.log("TO THE LEFT PLACING VERTICAL UP")
+      board[idx] = [playerBottom,1]
+      board[idx-14] = [playerTop,1]
+      leftEnd = playerTop
+      leftIdx = idx-14
+      console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+      currentTurn++
+      deleteDominoe(playerTop,playerBottom,player1)
+      render()
+      play()
+    }
+    else if(board[idx][0] === null && leftIdx === idx+1 && board[idx+14][0] === null && playerTop === leftEnd){
+      console.log("TO THE LEFT PLACING VERTICAL DOWN")
+      board[idx] = [playerTop,1]
+      board[idx+14] = [playerBottom,1]
+      leftEnd = playerBottom
+      leftIdx = idx+14
+      console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+      currentTurn++
+      deleteDominoe(playerTop,playerBottom,player1)
+      render()
+      play()
+    }
+  
+
+
 
   }
   
