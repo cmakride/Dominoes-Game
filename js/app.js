@@ -95,7 +95,48 @@ crossHairButton.addEventListener("click", (evt) => {
   renderCrossHair()
 })
 
-//An event listener for the rotate button in the cross hair this is what will change the values
+gameBoard.addEventListener('click', (evt) => {
+if(currentTurn === 1){
+  console.log(evt.target.id)
+  let numArray = []
+  let tempString = evt.target.id
+  let array = tempString.split('')
+  numArray.push(parseInt(array[2]),parseInt(array[3]))
+  console.log(numArray)
+  let idx = parseInt(numArray.join(''))
+
+  
+//there has to be something in the crosshair
+  if(playerRight !== null){
+    //this square is to the right horizontally 
+    if(board[idx][0] === null && rightIdx === idx-1 && board[idx+1][0] === null && playerLeft === rightEnd){
+      console.log("TO THE RIGHT PLACING HORIZONTAL")
+      board[idx] = [playerLeft,0]
+      board[idx+1] = [playerRight,0]
+      rightEnd = playerRight
+      rightIdx = idx+1
+      console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+    }
+  }
+  if(playerTop !== null){
+    //putting the dominoe vertically to the right and up
+    if(board[idx][0] === null && rightIdx === idx-1 && board[idx+14][0] === null && playerTop === rightEnd){
+      //place dominoe on the right side vertical down
+      console.log("TO THE RIGHT PLACING VERTICAL DOWN")
+      board[idx] = [playerTop,1]
+      board[idx+14] = [playerBottom,1]
+      rightEnd = playerBottom
+      rightIdx = idx+14
+      console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+    }
+
+  }
+  
+
+}
+
+
+})
 
 /*-------------------------------- Functions --------------------------------*/
 init()
@@ -237,7 +278,7 @@ function computer3Pick() {
     else{
       console.log("PLAYER 3 HAS PASSED")
       numberPasses++
-      console.log(numberPasses)
+      console.log("NUMBER PASSES: ",numberPasses)
     }
   render()
 }
@@ -250,11 +291,10 @@ function computer4Pick() {
     }
   })
   
-
+  console.log("Computer 4 Picking. OPTIONS: ",options)
   if(options.length !== 0){
     let num = Math.floor(Math.random()*options.length)
     //console.log("RANDOM INDEX = ",num)
-    console.log("FIRST INDEX",options[num])
     placeDominoe((options[num]))
     //delete that dominoe from the players hand because it is now on the board
     deleteDominoe(options[num][0],options[num][1],player4)
@@ -327,7 +367,6 @@ function placeDominoe(dominoe) {
     leftEnd = domL
     leftIdx = leftIdx-15
   }
-
   //left side vertical down Left side matches
   else if(leftEnd === domL && board[leftIdx-1][0] === null && board[leftIdx+13][0] === null){
     board[leftIdx-1] = [domL,1]
@@ -335,14 +374,12 @@ function placeDominoe(dominoe) {
     leftEnd = domR
     leftIdx = leftIdx+13
   }
-
   else if(leftEnd === domR && board[leftIdx-1][0] === null && board[leftIdx+13][0] === null){
     board[leftIdx-1] = [domR,1]
     board[leftIdx+13] = [domL,1]
     leftEnd = domL
     leftIdx = leftIdx+13
   }
-
   //?Right side vertical up
   else if (rightEnd === domL && board[rightIdx+1][0] === null && board[rightIdx-13][0] === null){
     board[rightIdx+1] = [domL,1]
@@ -357,7 +394,6 @@ function placeDominoe(dominoe) {
     rightEnd = domL
     rightIdx = rightIdx-13
   }
-
   //right side vertical down Left side matches rightend
   else if (rightEnd === domL && board[rightIdx+1][0] === null && board[rightIdx+15][0] === null){
     board[rightIdx+1] = [domL,1]
@@ -531,6 +567,7 @@ function findDoubleSix() {
   //need to place the 6,6 on the board.
   board[76] = [6, 0]
   board[77] = [6, 0]
+  
   leftEnd = 6
   rightEnd = 6
   leftIdx = 76
