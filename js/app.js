@@ -420,7 +420,68 @@ function placeDominoe(dominoe) {
   }
   //end of Horizontal
 
-  //left side vertical up
+  //start of vertical left end 1.1 next two are directly vertical left side going up
+  else if(leftEnd === domR && board[leftIdx-14][0]=== null && board[leftIdx-28][0]=== null){
+    board[leftIdx-14] = [domR,1]
+    board[leftIdx-28] = [domL,1]
+    leftEnd = domL
+    leftIdx = leftIdx-28
+  }
+  //left 1.2 end going vertical up swapping dominoe numbers
+  else if(leftEnd === domL && board[leftIdx-14][0]=== null && board[leftIdx-28][0]=== null){
+    board[leftIdx-14] = [domL,1]
+    board[leftIdx-28] = [domR,1]
+    leftEnd = domR
+    leftIdx = leftIdx-28
+  }
+  //1.3 vertical down on left side for left dominoe
+  else if(leftEnd === domL && board[leftIdx+14][0]=== null && board[leftIdx+28][0]=== null){
+    board[leftIdx+14] = [domL,1]
+    board[leftIdx+28] = [domR,1]
+    leftEnd = domR
+    leftIdx = leftIdx+28
+  }
+  //1.4 vertical up, left side for right dominoe
+  else if(leftEnd === domR && board[leftIdx+14][0]=== null && board[leftIdx+28][0]=== null){
+    board[leftIdx+14] = [domR,1]
+    board[leftIdx+28] = [domL,1]
+    leftEnd = domL
+    leftIdx = leftIdx+28
+  }
+  
+  //vertical Up 2.1 for right side on right dominoe 
+  else if(rightEnd === domR && board[rightIdx-14][0]=== null && board[rightIdx-28][0]=== null){
+    board[rightIdx-14] = [domR,1]
+    board[rightIdx-28] = [domL,1]
+    rightEnd = domL
+    rightIdx = rightIdx-28
+  }
+  //2.2 vertical up for right side for left dominoe
+  else if(rightEnd === domL && board[rightIdx-14][0]=== null && board[rightIdx-28][0]=== null){
+    board[rightIdx-14] = [domL,1]
+    board[rightIdx-28] = [domR,1]
+    rightEnd = domR
+    rightIdx = rightIdx-28
+  }
+  //2.3 vertical down Right side for left dominoe
+  else if(rightEnd === domL && board[rightIdx+14][0]=== null && board[rightIdx+28][0]=== null){
+    board[rightIdx+14] = [domL,1]
+    board[rightIdx+28] = [domR,1]
+    rightEnd = domR
+    rightIdx = rightIdx+28
+  }
+  //2.4 vertical down right side for right dominoe
+  else if(rightEnd === domR && board[rightIdx+14][0]=== null && board[rightIdx+28][0]=== null){
+    board[rightIdx+14] = [domR,1]
+    board[rightIdx+28] = [domL,1]
+    rightEnd = domL
+    rightIdx = rightIdx+28
+  }
+
+
+
+
+  
   else if(leftEnd === domL && board[leftIdx-1][0] === null && board[leftIdx-15][0] === null){
     board[leftIdx-1] = [domL,1]
     board[leftIdx-15] = [domR,1]
