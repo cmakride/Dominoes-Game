@@ -68,6 +68,9 @@ const crossHairSq2 = document.querySelector("#ch2")
 
 const crossHairButton = document.querySelector("#rotate")
 
+const favicon = document.querySelector("#favicon")
+favicon.setAttribute("href","/images/dominoes_game_favicon.png")
+
 /*----------------------------- Event Listeners -----------------------------*/
 //event listener for crosshair, if click a dominoe in the user's dominoes, that dominoe will appear on the crosshair and the left and right or top and bottom values will be changed if the button is pressed
 player1Dominoes.addEventListener("click", (evt) => {
@@ -124,7 +127,7 @@ if(currentTurn === 1){
   
 //there has to be something in the crosshair for this to happen because crosshair updates the player right/left or top/bottom values
   if(playerRight !== null){
-    //this square is to the right horizontally 
+    //this square is to the right horizontally for right side
     if(board[idx][0] === null && rightIdx === idx-1 && board[idx+1][0] === null && playerLeft === rightEnd){
       console.log("TO THE RIGHT PLACING HORIZONTAL")
       board[idx] = [playerLeft,0]
@@ -137,7 +140,24 @@ if(currentTurn === 1){
       render()
       play()
     }
-    //this square is to the left horizontally
+
+    //? need right side going to the left
+    if(board[idx][0] === null && rightIdx === idx+1 && board[idx-1][0] === null && playerRight === rightEnd){
+      console.log("TO THE LEFT PLACING HORIZONTAL")
+      board[idx] = [playerRight,0]
+      board[idx-1] = [playerLeft,0]
+      rightEnd = playerLeft
+      rightIdx = idx-1
+      console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+      currentTurn++
+      deleteDominoe(playerRight,playerLeft,player1)
+      render()
+      play()
+    }
+
+    //? after outcomes do left side going horizontally right
+
+    //this square is to the left horizontally for left side
     if(board[idx][0] === null && leftIdx === idx+1 && board[idx-1][0] === null && playerRight === leftEnd){
       console.log("TO THE LEFT PLACING HORIZONTAL")
       board[idx] = [playerRight,0]
@@ -151,6 +171,7 @@ if(currentTurn === 1){
       play()
     }
   }
+
   if(playerTop !== null){
     //?going vertical Up, dominoe is directly up
     if(board[idx][0] === null && rightIdx === idx+14 && board[idx-14][0] === null && playerBottom === rightEnd){
