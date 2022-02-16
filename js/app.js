@@ -116,6 +116,21 @@ if(currentTurn === 1){
       rightEnd = playerRight
       rightIdx = idx+1
       console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+      currentTurn++
+      deleteDominoe(playerRight,playerLeft,player1)
+      render()
+    }
+    //this square is to the left horizontally
+    if(board[idx][0] === null && leftIdx === idx+1 && board[idx-1][0] === null && playerRight === leftEnd){
+      console.log("TO THE LEFT PLACING HORIZONTAL")
+      board[idx] = [playerRight,0]
+      board[idx-1] = [playerLeft,0]
+      leftEnd = playerLeft
+      leftIdx = idx-1
+      console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+      currentTurn++
+      deleteDominoe(playerRight,playerLeft,player1)
+      render()
     }
   }
   if(playerTop !== null){
@@ -128,6 +143,10 @@ if(currentTurn === 1){
       rightEnd = playerBottom
       rightIdx = idx+14
       console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+      currentTurn++
+      deleteDominoe(playerTop,playerBottom,player1)
+      render()
+
     }
 
   }
@@ -583,6 +602,10 @@ function deleteDominoe(num1, num2, array) {
     if (dom.join("") === `${num1},${num2}`) {
       array.splice(idx, 1)
       //just have to run link to dominoes again and it should appear on the screen
+    }
+    //doing it again just reverse direction depending on the CrossHair
+    else if(dom.join("") === `${num2},${num1}`){
+    array.splice(idx, 1)
     }
   })
 
