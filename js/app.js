@@ -190,16 +190,8 @@ if(currentTurn === 1){
       render()
       play()
     }
-  
-
-
-
   }
-  
-
 }
-
-
 })
 
 /*-------------------------------- Functions --------------------------------*/
@@ -267,12 +259,29 @@ function play(){
     }
   }
 }
+function resetCrossHair(){
+playerRight = null
+playerLeft = null
+playerTop = null
+playerBottom = null
+
+crossHairSq0.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
+crossHairSq2.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
+crossHairSq1.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
+
+}
 
 function render() {
+console.log("RENDER RIGHT END: ",rightEnd)
+console.log("RENDER RIGHT IDX: ",rightIdx)
+console.log("RENDER LEFT END: ",leftEnd)
+console.log("RENDER LEFT IDX: ",leftIdx)
   //refresh the player's dominoes
   linkDominoesToPlayers()
   //Link the gameboard array to the grid in the html
   linkGridToBoard()
+
+  resetCrossHair()
 
   //displaying the message of which player's turn it is
   if (currentTurn === 5) {
@@ -308,7 +317,7 @@ function computer2Pick() {
   if(options.length !== 0){
   let num = Math.floor(Math.random()*options.length)
   //console.log("RANDOM INDEX = ",num)
-  console.log(options[num])
+  console.log("Computer 2 Picked: ",options[num])
   placeDominoe((options[num]))
   deleteDominoe(options[num][0],options[num][1],player2)
   linkDominoesToPlayers()
@@ -334,7 +343,7 @@ function computer3Pick() {
   if(options.length !== 0){
     let num = Math.floor(Math.random()*options.length)
     //console.log("RANDOM INDEX = ",num)
-    console.log(options[num])//sends the picked dominoe to the board
+    console.log("Computer 3 Picked: ",options[num])//sends the picked dominoe to the board
     placeDominoe((options[num]))
     deleteDominoe(options[num][0],options[num][1],player3)
     linkDominoesToPlayers()
@@ -358,7 +367,7 @@ function computer4Pick() {
   console.log("Computer 4 Picking. OPTIONS: ",options)
   if(options.length !== 0){
     let num = Math.floor(Math.random()*options.length)
-    //console.log("RANDOM INDEX = ",num)
+    console.log("Computer 4 Picked: ",options[num])
     placeDominoe((options[num]))
     //delete that dominoe from the players hand because it is now on the board
     deleteDominoe(options[num][0],options[num][1],player4)
@@ -374,12 +383,6 @@ function computer4Pick() {
 
   render()
 }
-
-//console.log(board[leftIdx+1][0] === null)
-console.log("RIGHT END: ",rightEnd)
-console.log("RIGHT IDX: ",rightIdx)
-console.log("LEFT END: ",leftEnd)
-console.log("LEFT IDX: ",leftIdx)
 
 
 
@@ -639,8 +642,7 @@ function findDoubleSix() {
 
   return (winner + 1)
 }
-//when get back add an if else for the turn in render which will be called right after find dominoes
-//make a function to delete dominoe [num,num,arrayToBeModified] 
+
 
 function deleteDominoe(num1, num2, array) {
   array.forEach((dom, idx) => {
@@ -656,10 +658,7 @@ function deleteDominoe(num1, num2, array) {
 
 }
 
-// console.log(player1)
-// console.log(player2)
-// console.log(player3)
-// console.log(player4)
+
 
 
 
