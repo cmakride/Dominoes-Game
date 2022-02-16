@@ -749,6 +749,9 @@ function linkGridToBoard() {
     } else {
       //number of dominoe and 0 for horizontal and 1 for vertical
       gameBoard.children[i].style.backgroundImage = `url('./images/Dominoes_${board[i][0]}_${board[i][1]}.png')`
+      if(board[i][0]!== null && board[i][0]!== 7){
+      gameBoard.children[i].style.boxShadow = "0px 5px 15px -5px #000000"
+      }
     }
   }
   //need to make each dominoe have a third element for vertical or horizontal, remember each element in the board array represents one number so have to make a function that will put a dominoe and place a number in each cell so each element in the board array has two values one for the number and one for the position
