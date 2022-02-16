@@ -15,6 +15,22 @@ let crossArray = []
 let dominoes = []
 // this works showing that if a value of 6 is here 0 horizontal
 let board = new Array(140).fill([null, null])
+//setting top row to 7,0
+for(let i = 0 ; i<14 ; i++){
+  board[i] = [7,0]
+}
+//setting bottom row to 7,0
+for(let i = 126 ; i<140 ; i++){
+  board[i] = [7,0]
+}
+//setting left column to 7,0
+for(let i = 14 ; i<=112 ; i+=14){
+  board[i] = [7,0]
+}
+//setting right column to 7,0
+for(let i = 27 ; i<=125 ; i+=14){
+  board[i] = [7,0]
+}
 
 
 let rightEnd = null
@@ -136,6 +152,63 @@ if(currentTurn === 1){
     }
   }
   if(playerTop !== null){
+    //?going vertical Up, dominoe is directly up
+    if(board[idx][0] === null && rightIdx === idx+14 && board[idx-14][0] === null && playerBottom === rightEnd){
+      console.log("PLACING DOMINOE DIRECTLY ABOVE RIGHT END")
+      board[idx] = [playerBottom,1]
+      board[idx-14] = [playerTop,1]
+      rightEnd = playerTop
+      rightIdx = idx-14
+      console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+      currentTurn++
+      deleteDominoe(playerTop,playerBottom,player1)
+      render()
+      play()
+    }
+
+    //? going vertical up for leftside 
+    if(board[idx][0] === null && leftIdx === idx+14 && board[idx-14][0] === null && playerBottom === leftEnd){
+      console.log("PLACING DOMINOE DIRECTLY ABOVE LEFT END")
+      board[idx] = [playerBottom,1]
+      board[idx-14] = [playerTop,1]
+      leftEnd = playerTop
+      leftIdx = idx-14
+      console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+      currentTurn++
+      deleteDominoe(playerTop,playerBottom,player1)
+      render()
+      play()
+    }
+
+    //? going vertical for rightside down
+    if(board[idx][0] === null && rightIdx === idx-14 && board[idx+14][0] === null && playerTop === rightEnd){
+      console.log("PLACING DOMINOE DIRECTLY BELOW RIGHT END")
+      board[idx] = [playerTop,1]
+      board[idx+14] = [playerBottom,1]
+      rightEnd = playerBottom
+      rightIdx = idx+14
+      console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+      currentTurn++
+      deleteDominoe(playerTop,playerBottom,player1)
+      render()
+      play()
+    }
+
+    //?going vertical for leftside down
+    if(board[idx][0] === null && leftIdx === idx-14 && board[idx+14][0] === null && playerTop === leftEnd){
+      console.log("PLACING DOMINOE DIRECTLY BELOW LEFT END")
+      board[idx] = [playerTop,1]
+      board[idx+14] = [playerBottom,1]
+      leftEnd = playerBottom
+      leftIdx = idx+14
+      console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+      currentTurn++
+      deleteDominoe(playerTop,playerBottom,player1)
+      render()
+      play()
+    }
+
+
     //putting the dominoe vertically to the right and down
     if(board[idx][0] === null && rightIdx === idx-1 && board[idx+14][0] === null && playerTop === rightEnd){
       //place dominoe on the right side vertical down
@@ -448,7 +521,7 @@ function placeDominoe(dominoe) {
     leftEnd = domL
     leftIdx = leftIdx+28
   }
-  
+
   //vertical Up 2.1 for right side on right dominoe 
   else if(rightEnd === domR && board[rightIdx-14][0]=== null && board[rightIdx-28][0]=== null){
     board[rightIdx-14] = [domR,1]
