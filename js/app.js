@@ -156,6 +156,19 @@ if(currentTurn === 1){
     }
 
     //? after outcomes do left side going horizontally right
+    if(board[idx][0] === null && leftIdx === idx-1 && board[idx+1][0] === null && playerLeft === leftEnd){
+      console.log("TO THE RIGHT PLACING HORIZONTAL")
+      board[idx] = [playerLeft,0]
+      board[idx+1] = [playerRight,0]
+      leftEnd = playerRight
+      leftIdx = idx+1
+      console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+      currentTurn++
+      deleteDominoe(playerRight,playerLeft,player1)
+      render()
+      play()
+    }
+
 
     //this square is to the left horizontally for left side
     if(board[idx][0] === null && leftIdx === idx+1 && board[idx-1][0] === null && playerRight === leftEnd){
