@@ -139,19 +139,15 @@ section.gameBoard {
 
 /* Each Grid Cell of the Board */
 section.gameBoard > *{
-  border: 1px solid rgb(228, 228, 228);
+  /* border: 1px solid rgb(228, 228, 228); */
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   
 }
 section.gameBoard div {
-  background-color: rgb(255,255,255);
+  background-color: rgb(165, 164, 164);
   /* -moz-box-shadow:    1px 1px 2px 3px #ccc;
   -webkit-box-shadow: 1px 1px 2px 3px #ccc;
   box-shadow:         1px 1px 2px 3px #ccc; */
-}
-img{
-  border: 1px solid red;
-
 }

@@ -16,20 +16,20 @@ let dominoes = []
 // this works showing that if a value of 6 is here 0 horizontal
 let board = new Array(140).fill([null, null])
 //setting top row to 7,0
-for(let i = 0 ; i<14 ; i++){
-  board[i] = [7,0]
+for (let i = 0; i < 14; i++) {
+  board[i] = [7, 0]
 }
 //setting bottom row to 7,0
-for(let i = 126 ; i<140 ; i++){
-  board[i] = [7,0]
+for (let i = 126; i < 140; i++) {
+  board[i] = [7, 0]
 }
 //setting left column to 7,0
-for(let i = 14 ; i<=112 ; i+=14){
-  board[i] = [7,0]
+for (let i = 14; i <= 112; i += 14) {
+  board[i] = [7, 0]
 }
 //setting right column to 7,0
-for(let i = 27 ; i<=125 ; i+=14){
-  board[i] = [7,0]
+for (let i = 27; i <= 125; i += 14) {
+  board[i] = [7, 0]
 }
 
 
@@ -68,8 +68,10 @@ const crossHairSq2 = document.querySelector("#ch2")
 
 const crossHairButton = document.querySelector("#rotate")
 
+const compTimer = document.querySelector('#timer')
+
 const favicon = document.querySelector("#favicon")
-favicon.setAttribute("href","/images/dominoes_game_favicon.png")
+favicon.setAttribute("href", "/images/dominoes_game_favicon.png")
 
 /*----------------------------- Event Listeners -----------------------------*/
 //event listener for crosshair, if click a dominoe in the user's dominoes, that dominoe will appear on the crosshair and the left and right or top and bottom values will be changed if the button is pressed
@@ -115,190 +117,190 @@ crossHairButton.addEventListener("click", (evt) => {
 })
 
 gameBoard.addEventListener('click', (evt) => {
-if(currentTurn === 1){
-  console.log(evt.target.id)
-  let numArray = []
-  let tempString = evt.target.id
-  let array = tempString.split('')
-  numArray.push(parseInt(array[2]),parseInt(array[3]))
-  console.log(numArray)
-  let idx = parseInt(numArray.join(''))
+  if (currentTurn === 1) {
+    console.log(evt.target.id)
+    let numArray = []
+    let tempString = evt.target.id
+    let array = tempString.split('')
+    numArray.push(parseInt(array[2]), parseInt(array[3]))
+    console.log(numArray)
+    let idx = parseInt(numArray.join(''))
 
-  
-//there has to be something in the crosshair for this to happen because crosshair updates the player right/left or top/bottom values
-  if(playerRight !== null){
-    //this square is to the right horizontally for right side
-    if(board[idx][0] === null && rightIdx === idx-1 && board[idx+1][0] === null && playerLeft === rightEnd){
-      console.log("TO THE RIGHT PLACING HORIZONTAL")
-      board[idx] = [playerLeft,0]
-      board[idx+1] = [playerRight,0]
-      rightEnd = playerRight
-      rightIdx = idx+1
-      console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
-      currentTurn++
-      deleteDominoe(playerRight,playerLeft,player1)
-      render()
-      play()
+
+    //there has to be something in the crosshair for this to happen because crosshair updates the player right/left or top/bottom values
+    if (playerRight !== null) {
+      //this square is to the right horizontally for right side
+      if (board[idx][0] === null && rightIdx === idx - 1 && board[idx + 1][0] === null && playerLeft === rightEnd) {
+        console.log("TO THE RIGHT PLACING HORIZONTAL")
+        board[idx] = [playerLeft, 0]
+        board[idx + 1] = [playerRight, 0]
+        rightEnd = playerRight
+        rightIdx = idx + 1
+        console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+        currentTurn++
+        deleteDominoe(playerRight, playerLeft, player1)
+        render()
+        play()
+      }
+
+      //? need right side going to the left
+      if (board[idx][0] === null && rightIdx === idx + 1 && board[idx - 1][0] === null && playerRight === rightEnd) {
+        console.log("TO THE LEFT PLACING HORIZONTAL")
+        board[idx] = [playerRight, 0]
+        board[idx - 1] = [playerLeft, 0]
+        rightEnd = playerLeft
+        rightIdx = idx - 1
+        console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+        currentTurn++
+        deleteDominoe(playerRight, playerLeft, player1)
+        render()
+        play()
+      }
+
+      //? after outcomes do left side going horizontally right
+      if (board[idx][0] === null && leftIdx === idx - 1 && board[idx + 1][0] === null && playerLeft === leftEnd) {
+        console.log("TO THE RIGHT PLACING HORIZONTAL")
+        board[idx] = [playerLeft, 0]
+        board[idx + 1] = [playerRight, 0]
+        leftEnd = playerRight
+        leftIdx = idx + 1
+        console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+        currentTurn++
+        deleteDominoe(playerRight, playerLeft, player1)
+        render()
+        play()
+      }
+
+
+      //this square is to the left horizontally for left side
+      if (board[idx][0] === null && leftIdx === idx + 1 && board[idx - 1][0] === null && playerRight === leftEnd) {
+        console.log("TO THE LEFT PLACING HORIZONTAL")
+        board[idx] = [playerRight, 0]
+        board[idx - 1] = [playerLeft, 0]
+        leftEnd = playerLeft
+        leftIdx = idx - 1
+        console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+        currentTurn++
+        deleteDominoe(playerRight, playerLeft, player1)
+        render()
+        play()
+      }
     }
 
-    //? need right side going to the left
-    if(board[idx][0] === null && rightIdx === idx+1 && board[idx-1][0] === null && playerRight === rightEnd){
-      console.log("TO THE LEFT PLACING HORIZONTAL")
-      board[idx] = [playerRight,0]
-      board[idx-1] = [playerLeft,0]
-      rightEnd = playerLeft
-      rightIdx = idx-1
-      console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
-      currentTurn++
-      deleteDominoe(playerRight,playerLeft,player1)
-      render()
-      play()
-    }
+    if (playerTop !== null) {
+      //?going vertical Up, dominoe is directly up
+      if (board[idx][0] === null && rightIdx === idx + 14 && board[idx - 14][0] === null && playerBottom === rightEnd) {
+        console.log("PLACING DOMINOE DIRECTLY ABOVE RIGHT END")
+        board[idx] = [playerBottom, 1]
+        board[idx - 14] = [playerTop, 1]
+        rightEnd = playerTop
+        rightIdx = idx - 14
+        console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+        currentTurn++
+        deleteDominoe(playerTop, playerBottom, player1)
+        render()
+        play()
+      }
 
-    //? after outcomes do left side going horizontally right
-    if(board[idx][0] === null && leftIdx === idx-1 && board[idx+1][0] === null && playerLeft === leftEnd){
-      console.log("TO THE RIGHT PLACING HORIZONTAL")
-      board[idx] = [playerLeft,0]
-      board[idx+1] = [playerRight,0]
-      leftEnd = playerRight
-      leftIdx = idx+1
-      console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
-      currentTurn++
-      deleteDominoe(playerRight,playerLeft,player1)
-      render()
-      play()
-    }
+      //? going vertical up for leftside 
+      if (board[idx][0] === null && leftIdx === idx + 14 && board[idx - 14][0] === null && playerBottom === leftEnd) {
+        console.log("PLACING DOMINOE DIRECTLY ABOVE LEFT END")
+        board[idx] = [playerBottom, 1]
+        board[idx - 14] = [playerTop, 1]
+        leftEnd = playerTop
+        leftIdx = idx - 14
+        console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+        currentTurn++
+        deleteDominoe(playerTop, playerBottom, player1)
+        render()
+        play()
+      }
+
+      //? going vertical for rightside down
+      if (board[idx][0] === null && rightIdx === idx - 14 && board[idx + 14][0] === null && playerTop === rightEnd) {
+        console.log("PLACING DOMINOE DIRECTLY BELOW RIGHT END")
+        board[idx] = [playerTop, 1]
+        board[idx + 14] = [playerBottom, 1]
+        rightEnd = playerBottom
+        rightIdx = idx + 14
+        console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+        currentTurn++
+        deleteDominoe(playerTop, playerBottom, player1)
+        render()
+        play()
+      }
+
+      //?going vertical for leftside down
+      if (board[idx][0] === null && leftIdx === idx - 14 && board[idx + 14][0] === null && playerTop === leftEnd) {
+        console.log("PLACING DOMINOE DIRECTLY BELOW LEFT END")
+        board[idx] = [playerTop, 1]
+        board[idx + 14] = [playerBottom, 1]
+        leftEnd = playerBottom
+        leftIdx = idx + 14
+        console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+        currentTurn++
+        deleteDominoe(playerTop, playerBottom, player1)
+        render()
+        play()
+      }
 
 
-    //this square is to the left horizontally for left side
-    if(board[idx][0] === null && leftIdx === idx+1 && board[idx-1][0] === null && playerRight === leftEnd){
-      console.log("TO THE LEFT PLACING HORIZONTAL")
-      board[idx] = [playerRight,0]
-      board[idx-1] = [playerLeft,0]
-      leftEnd = playerLeft
-      leftIdx = idx-1
-      console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
-      currentTurn++
-      deleteDominoe(playerRight,playerLeft,player1)
-      render()
-      play()
+      //putting the dominoe vertically to the right and down
+      if (board[idx][0] === null && rightIdx === idx - 1 && board[idx + 14][0] === null && playerTop === rightEnd) {
+        //place dominoe on the right side vertical down
+        console.log("TO THE RIGHT PLACING VERTICAL DOWN")
+        board[idx] = [playerTop, 1]
+        board[idx + 14] = [playerBottom, 1]
+        rightEnd = playerBottom
+        rightIdx = idx + 14
+        console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+        currentTurn++
+        deleteDominoe(playerTop, playerBottom, player1)
+        render()
+        play()
+
+      }
+      //putting the dominoe vertically to the right and up
+      else if (board[idx][0] === null && rightIdx === idx - 1 && board[idx - 14][0] === null && playerBottom === rightEnd) {
+        console.log("TO THE RIGHT PLACING VERTICAL UP")
+        board[idx] = [playerBottom, 1]
+        board[idx - 14] = [playerTop, 1]
+        rightEnd = playerTop
+        rightIdx = idx - 14
+        console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+        currentTurn++
+        deleteDominoe(playerTop, playerBottom, player1)
+        render()
+        play()
+
+      }
+      //placing left side and up
+      if (board[idx][0] === null && leftIdx === idx + 1 && board[idx - 14][0] === null && playerBottom === leftEnd) {
+        console.log("TO THE LEFT PLACING VERTICAL UP")
+        board[idx] = [playerBottom, 1]
+        board[idx - 14] = [playerTop, 1]
+        leftEnd = playerTop
+        leftIdx = idx - 14
+        console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+        currentTurn++
+        deleteDominoe(playerTop, playerBottom, player1)
+        render()
+        play()
+      }
+      else if (board[idx][0] === null && leftIdx === idx + 1 && board[idx + 14][0] === null && playerTop === leftEnd) {
+        console.log("TO THE LEFT PLACING VERTICAL DOWN")
+        board[idx] = [playerTop, 1]
+        board[idx + 14] = [playerBottom, 1]
+        leftEnd = playerBottom
+        leftIdx = idx + 14
+        console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+        currentTurn++
+        deleteDominoe(playerTop, playerBottom, player1)
+        render()
+        play()
+      }
     }
   }
-
-  if(playerTop !== null){
-    //?going vertical Up, dominoe is directly up
-    if(board[idx][0] === null && rightIdx === idx+14 && board[idx-14][0] === null && playerBottom === rightEnd){
-      console.log("PLACING DOMINOE DIRECTLY ABOVE RIGHT END")
-      board[idx] = [playerBottom,1]
-      board[idx-14] = [playerTop,1]
-      rightEnd = playerTop
-      rightIdx = idx-14
-      console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
-      currentTurn++
-      deleteDominoe(playerTop,playerBottom,player1)
-      render()
-      play()
-    }
-
-    //? going vertical up for leftside 
-    if(board[idx][0] === null && leftIdx === idx+14 && board[idx-14][0] === null && playerBottom === leftEnd){
-      console.log("PLACING DOMINOE DIRECTLY ABOVE LEFT END")
-      board[idx] = [playerBottom,1]
-      board[idx-14] = [playerTop,1]
-      leftEnd = playerTop
-      leftIdx = idx-14
-      console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
-      currentTurn++
-      deleteDominoe(playerTop,playerBottom,player1)
-      render()
-      play()
-    }
-
-    //? going vertical for rightside down
-    if(board[idx][0] === null && rightIdx === idx-14 && board[idx+14][0] === null && playerTop === rightEnd){
-      console.log("PLACING DOMINOE DIRECTLY BELOW RIGHT END")
-      board[idx] = [playerTop,1]
-      board[idx+14] = [playerBottom,1]
-      rightEnd = playerBottom
-      rightIdx = idx+14
-      console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
-      currentTurn++
-      deleteDominoe(playerTop,playerBottom,player1)
-      render()
-      play()
-    }
-
-    //?going vertical for leftside down
-    if(board[idx][0] === null && leftIdx === idx-14 && board[idx+14][0] === null && playerTop === leftEnd){
-      console.log("PLACING DOMINOE DIRECTLY BELOW LEFT END")
-      board[idx] = [playerTop,1]
-      board[idx+14] = [playerBottom,1]
-      leftEnd = playerBottom
-      leftIdx = idx+14
-      console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
-      currentTurn++
-      deleteDominoe(playerTop,playerBottom,player1)
-      render()
-      play()
-    }
-
-
-    //putting the dominoe vertically to the right and down
-    if(board[idx][0] === null && rightIdx === idx-1 && board[idx+14][0] === null && playerTop === rightEnd){
-      //place dominoe on the right side vertical down
-      console.log("TO THE RIGHT PLACING VERTICAL DOWN")
-      board[idx] = [playerTop,1]
-      board[idx+14] = [playerBottom,1]
-      rightEnd = playerBottom
-      rightIdx = idx+14
-      console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
-      currentTurn++
-      deleteDominoe(playerTop,playerBottom,player1)
-      render()
-      play()
-
-    }
-    //putting the dominoe vertically to the right and up
-    else if(board[idx][0] === null && rightIdx === idx-1 && board[idx-14][0] === null && playerBottom === rightEnd){
-      console.log("TO THE RIGHT PLACING VERTICAL UP")
-      board[idx] = [playerBottom,1]
-      board[idx-14] = [playerTop,1]
-      rightEnd = playerTop
-      rightIdx = idx-14
-      console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
-      currentTurn++
-      deleteDominoe(playerTop,playerBottom,player1)
-      render()
-      play()
-
-    }
-    //placing left side and up
-    if(board[idx][0] === null && leftIdx === idx+1 && board[idx-14][0] === null && playerBottom === leftEnd){
-      console.log("TO THE LEFT PLACING VERTICAL UP")
-      board[idx] = [playerBottom,1]
-      board[idx-14] = [playerTop,1]
-      leftEnd = playerTop
-      leftIdx = idx-14
-      console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
-      currentTurn++
-      deleteDominoe(playerTop,playerBottom,player1)
-      render()
-      play()
-    }
-    else if(board[idx][0] === null && leftIdx === idx+1 && board[idx+14][0] === null && playerTop === leftEnd){
-      console.log("TO THE LEFT PLACING VERTICAL DOWN")
-      board[idx] = [playerTop,1]
-      board[idx+14] = [playerBottom,1]
-      leftEnd = playerBottom
-      leftIdx = idx+14
-      console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
-      currentTurn++
-      deleteDominoe(playerTop,playerBottom,player1)
-      render()
-      play()
-    }
-  }
-}
 })
 
 /*-------------------------------- Functions --------------------------------*/
@@ -350,39 +352,82 @@ function init() {
 }
 
 //play() will be invoked after each time the user picks a dominoe. 
-function play(){
+function play() {
+  // let timeLeft = 6
+  //   let text = "."
+
+  //   let timer = setInterval(function () {
+  //     compTimer.textContent = `Player ${currentTurn} is picking${text}`
+  //     timeLeft -= 1
+  //     text += "."
+  //     if(text === "...."){
+  //       text = "."
+  //     }
+
+  //     if (timeLeft < 0) {
+  //       compTimer.textContent = ""
+  //       clearInterval(timer)
+  //     }
+  //   }, 1000)
+
   while(isWinner === null && currentTurn !== 1) {
-    if (currentTurn === 2) {
+    let num1 = 0
+    let num2 = 0
+    let num3 = 0
+    if(currentTurn === 2){
+      num1 = 6000
+      num2 = 12000
+      num3 = 18000
+    }else if(currentTurn === 3){
+      num2 = 6000
+      num3 = 12000
+    }else if(currentTurn === 4){
+      num3 = 6000
+    }
+    if (currentTurn === 2) { 
+      // compTimer.textContent = `Player 2 is picking...`
+      setTimeout(()=> {
+        computer2Pick()
+      },num1)
       currentTurn++
-      computer2Pick()
     }
     if (currentTurn === 3) {
+      setTimeout(()=> {
+        computer3Pick()
+        
+        // compTimer.textContent = `Player 4 is picking...`
+      },num2)
       currentTurn++
-      computer3Pick()
     }
     if (currentTurn === 4) {
+      setTimeout(()=> {
+        
+        computer4Pick()
+        
+        compTimer.textContent = ""
+      },num3)
       currentTurn = 1
-      computer4Pick()
     }
   }
 }
-function resetCrossHair(){
-playerRight = null
-playerLeft = null
-playerTop = null
-playerBottom = null
 
-crossHairSq0.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
-crossHairSq2.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
-crossHairSq1.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
+function resetCrossHair() {
+  playerRight = null
+  playerLeft = null
+  playerTop = null
+  playerBottom = null
+
+  crossHairSq0.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
+  crossHairSq2.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
+  crossHairSq1.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
 
 }
 
 function render() {
-console.log("RENDER RIGHT END: ",rightEnd)
-console.log("RENDER RIGHT IDX: ",rightIdx)
-console.log("RENDER LEFT END: ",leftEnd)
-console.log("RENDER LEFT IDX: ",leftIdx)
+  console.log("RENDER RIGHT END: ", rightEnd)
+  console.log("RENDER RIGHT IDX: ", rightIdx)
+  console.log("RENDER LEFT END: ", leftEnd)
+  console.log("RENDER LEFT IDX: ", leftIdx)
   //refresh the player's dominoes
   linkDominoesToPlayers()
   //Link the gameboard array to the grid in the html
@@ -414,22 +459,22 @@ function computer2Pick() {
   //get an array of all of the options if options.length = 0
   //if a dominoe has one number that matches right or left end add that dominoe to the options array
   let options = []
-  player2.forEach((dominoe)=>{
-    if(dominoe[0][0] === leftEnd || dominoe[0][0]=== rightEnd || dominoe[0][1]=== leftEnd || dominoe[0][1]===rightEnd){
-    options.push(dominoe[0])
+  player2.forEach((dominoe) => {
+    if (dominoe[0][0] === leftEnd || dominoe[0][0] === rightEnd || dominoe[0][1] === leftEnd || dominoe[0][1] === rightEnd) {
+      options.push(dominoe[0])
     }
   })
-  console.log("Computer 2 Picking. OPTIONS: ",options)
+  console.log("Computer 2 Picking. OPTIONS: ", options)
   //first picks a random dominoe
-  if(options.length !== 0){
-  let num = Math.floor(Math.random()*options.length)
-  //console.log("RANDOM INDEX = ",num)
-  console.log("Computer 2 Picked: ",options[num])
-  placeDominoe((options[num]))
-  deleteDominoe(options[num][0],options[num][1],player2)
-  linkDominoesToPlayers()
+  if (options.length !== 0) {
+    let num = Math.floor(Math.random() * options.length)
+    //console.log("RANDOM INDEX = ",num)
+    console.log("Computer 2 Picked: ", options[num])
+    placeDominoe((options[num]))
+    deleteDominoe(options[num][0], options[num][1], player2)
+    linkDominoesToPlayers()
   }
-  else{
+  else {
     console.log("PLAYER 2 HAS PASSED")
     numberPasses++
     console.log(numberPasses)
@@ -440,53 +485,53 @@ function computer2Pick() {
 
 function computer3Pick() {
   let options = []
-  player3.forEach((dominoe)=>{
-    if(dominoe[0][0] === leftEnd || dominoe[0][0]=== rightEnd || dominoe[0][1]=== leftEnd || dominoe[0][1]===rightEnd){
-    options.push(dominoe[0])
+  player3.forEach((dominoe) => {
+    if (dominoe[0][0] === leftEnd || dominoe[0][0] === rightEnd || dominoe[0][1] === leftEnd || dominoe[0][1] === rightEnd) {
+      options.push(dominoe[0])
     }
   })
-  console.log("Computer 3 Picking. OPTIONS: ",options)
+  console.log("Computer 3 Picking. OPTIONS: ", options)
 
-  if(options.length !== 0){
-    let num = Math.floor(Math.random()*options.length)
+  if (options.length !== 0) {
+    let num = Math.floor(Math.random() * options.length)
     //console.log("RANDOM INDEX = ",num)
-    console.log("Computer 3 Picked: ",options[num])//sends the picked dominoe to the board
+    console.log("Computer 3 Picked: ", options[num])//sends the picked dominoe to the board
     placeDominoe((options[num]))
-    deleteDominoe(options[num][0],options[num][1],player3)
+    deleteDominoe(options[num][0], options[num][1], player3)
     linkDominoesToPlayers()
-    }
-    else{
-      console.log("PLAYER 3 HAS PASSED")
-      numberPasses++
-      console.log("NUMBER PASSES: ",numberPasses)
-    }
+  }
+  else {
+    console.log("PLAYER 3 HAS PASSED")
+    numberPasses++
+    console.log("NUMBER PASSES: ", numberPasses)
+  }
   render()
 }
 
 function computer4Pick() {
   let options = []
-  player4.forEach((dominoe)=>{
-    if(dominoe[0][0] === leftEnd || dominoe[0][0]=== rightEnd || dominoe[0][1]=== leftEnd || dominoe[0][1]===rightEnd){
-    options.push(dominoe[0])
+  player4.forEach((dominoe) => {
+    if (dominoe[0][0] === leftEnd || dominoe[0][0] === rightEnd || dominoe[0][1] === leftEnd || dominoe[0][1] === rightEnd) {
+      options.push(dominoe[0])
     }
   })
-  
-  console.log("Computer 4 Picking. OPTIONS: ",options)
-  if(options.length !== 0){
-    let num = Math.floor(Math.random()*options.length)
-    console.log("Computer 4 Picked: ",options[num])
+
+  console.log("Computer 4 Picking. OPTIONS: ", options)
+  if (options.length !== 0) {
+    let num = Math.floor(Math.random() * options.length)
+    console.log("Computer 4 Picked: ", options[num])
     placeDominoe((options[num]))
     //delete that dominoe from the players hand because it is now on the board
-    deleteDominoe(options[num][0],options[num][1],player4)
+    deleteDominoe(options[num][0], options[num][1], player4)
     //reload the player's hands
     linkDominoesToPlayers()
-    
-    }
-    else{
-      console.log("PLAYER 4 HAS PASSED")
-      numberPasses++
-      console.log(numberPasses)
-    }
+
+  }
+  else {
+    console.log("PLAYER 4 HAS PASSED")
+    numberPasses++
+    console.log(numberPasses)
+  }
 
   render()
 }
@@ -494,154 +539,151 @@ function computer4Pick() {
 
 
 
-function placeDominoe(dominoe) { 
+function placeDominoe(dominoe) {
   let domL = dominoe[0]
   let domR = dominoe[1]
 
   //doing the left side first, going to check multiple instances, Left end Horizontal
-  if(leftEnd === domL && board[leftIdx-1][0] === null && board[leftIdx-2][0] === null){
+  if (leftEnd === domL && board[leftIdx - 1][0] === null && board[leftIdx - 2][0] === null) {
     //place the dominoe!
-    board[leftIdx-1] = [domL,0]
-    board[leftIdx-2] = [domR,0]
+    board[leftIdx - 1] = [domL, 0]
+    board[leftIdx - 2] = [domR, 0]
     leftEnd = domR
-    leftIdx = leftIdx-2
+    leftIdx = leftIdx - 2
   }
-  else if (leftEnd === domR && board[leftIdx-1][0] === null && board[leftIdx-2][0] === null){
-    board[leftIdx-1] = [domR,0]
-    board[leftIdx-2] = [domL,0]
+  else if (leftEnd === domR && board[leftIdx - 1][0] === null && board[leftIdx - 2][0] === null) {
+    board[leftIdx - 1] = [domR, 0]
+    board[leftIdx - 2] = [domL, 0]
     leftEnd = domL
-    leftIdx = leftIdx-2
+    leftIdx = leftIdx - 2
   }
   //now for right end Horizontal
-  else if (rightEnd === domL && board[rightIdx+1][0] === null && board[rightIdx+2][0] === null){
-    board[rightIdx+1] = [domL,0]
-    board[rightIdx+2] = [domR,0]
+  else if (rightEnd === domL && board[rightIdx + 1][0] === null && board[rightIdx + 2][0] === null) {
+    board[rightIdx + 1] = [domL, 0]
+    board[rightIdx + 2] = [domR, 0]
     rightEnd = domR
-    rightIdx = rightIdx+2
+    rightIdx = rightIdx + 2
   }
-  else if (rightEnd === domR && board[rightIdx+1][0] === null && board[rightIdx+2][0] === null){
-    board[rightIdx+1] = [domR,0]
-    board[rightIdx+2] = [domL,0]
+  else if (rightEnd === domR && board[rightIdx + 1][0] === null && board[rightIdx + 2][0] === null) {
+    board[rightIdx + 1] = [domR, 0]
+    board[rightIdx + 2] = [domL, 0]
     rightEnd = domL
-    rightIdx = rightIdx+2
+    rightIdx = rightIdx + 2
   }
   //end of Horizontal
 
   //start of vertical left end 1.1 next two are directly vertical left side going up
-  else if(leftEnd === domR && board[leftIdx-14][0]=== null && board[leftIdx-28][0]=== null){
-    board[leftIdx-14] = [domR,1]
-    board[leftIdx-28] = [domL,1]
+  else if (leftEnd === domR && board[leftIdx - 14][0] === null && board[leftIdx - 28][0] === null) {
+    board[leftIdx - 14] = [domR, 1]
+    board[leftIdx - 28] = [domL, 1]
     leftEnd = domL
-    leftIdx = leftIdx-28
+    leftIdx = leftIdx - 28
   }
   //left 1.2 end going vertical up swapping dominoe numbers
-  else if(leftEnd === domL && board[leftIdx-14][0]=== null && board[leftIdx-28][0]=== null){
-    board[leftIdx-14] = [domL,1]
-    board[leftIdx-28] = [domR,1]
+  else if (leftEnd === domL && board[leftIdx - 14][0] === null && board[leftIdx - 28][0] === null) {
+    board[leftIdx - 14] = [domL, 1]
+    board[leftIdx - 28] = [domR, 1]
     leftEnd = domR
-    leftIdx = leftIdx-28
+    leftIdx = leftIdx - 28
   }
   //1.3 vertical down on left side for left dominoe
-  else if(leftEnd === domL && board[leftIdx+14][0]=== null && board[leftIdx+28][0]=== null){
-    board[leftIdx+14] = [domL,1]
-    board[leftIdx+28] = [domR,1]
+  else if (leftEnd === domL && board[leftIdx + 14][0] === null && board[leftIdx + 28][0] === null) {
+    board[leftIdx + 14] = [domL, 1]
+    board[leftIdx + 28] = [domR, 1]
     leftEnd = domR
-    leftIdx = leftIdx+28
+    leftIdx = leftIdx + 28
   }
   //1.4 vertical up, left side for right dominoe
-  else if(leftEnd === domR && board[leftIdx+14][0]=== null && board[leftIdx+28][0]=== null){
-    board[leftIdx+14] = [domR,1]
-    board[leftIdx+28] = [domL,1]
+  else if (leftEnd === domR && board[leftIdx + 14][0] === null && board[leftIdx + 28][0] === null) {
+    board[leftIdx + 14] = [domR, 1]
+    board[leftIdx + 28] = [domL, 1]
     leftEnd = domL
-    leftIdx = leftIdx+28
+    leftIdx = leftIdx + 28
   }
 
   //vertical Up 2.1 for right side on right dominoe 
-  else if(rightEnd === domR && board[rightIdx-14][0]=== null && board[rightIdx-28][0]=== null){
-    board[rightIdx-14] = [domR,1]
-    board[rightIdx-28] = [domL,1]
+  else if (rightEnd === domR && board[rightIdx - 14][0] === null && board[rightIdx - 28][0] === null) {
+    board[rightIdx - 14] = [domR, 1]
+    board[rightIdx - 28] = [domL, 1]
     rightEnd = domL
-    rightIdx = rightIdx-28
+    rightIdx = rightIdx - 28
   }
   //2.2 vertical up for right side for left dominoe
-  else if(rightEnd === domL && board[rightIdx-14][0]=== null && board[rightIdx-28][0]=== null){
-    board[rightIdx-14] = [domL,1]
-    board[rightIdx-28] = [domR,1]
+  else if (rightEnd === domL && board[rightIdx - 14][0] === null && board[rightIdx - 28][0] === null) {
+    board[rightIdx - 14] = [domL, 1]
+    board[rightIdx - 28] = [domR, 1]
     rightEnd = domR
-    rightIdx = rightIdx-28
+    rightIdx = rightIdx - 28
   }
   //2.3 vertical down Right side for left dominoe
-  else if(rightEnd === domL && board[rightIdx+14][0]=== null && board[rightIdx+28][0]=== null){
-    board[rightIdx+14] = [domL,1]
-    board[rightIdx+28] = [domR,1]
+  else if (rightEnd === domL && board[rightIdx + 14][0] === null && board[rightIdx + 28][0] === null) {
+    board[rightIdx + 14] = [domL, 1]
+    board[rightIdx + 28] = [domR, 1]
     rightEnd = domR
-    rightIdx = rightIdx+28
+    rightIdx = rightIdx + 28
   }
   //2.4 vertical down right side for right dominoe
-  else if(rightEnd === domR && board[rightIdx+14][0]=== null && board[rightIdx+28][0]=== null){
-    board[rightIdx+14] = [domR,1]
-    board[rightIdx+28] = [domL,1]
+  else if (rightEnd === domR && board[rightIdx + 14][0] === null && board[rightIdx + 28][0] === null) {
+    board[rightIdx + 14] = [domR, 1]
+    board[rightIdx + 28] = [domL, 1]
     rightEnd = domL
-    rightIdx = rightIdx+28
+    rightIdx = rightIdx + 28
   }
 
 
-
-
-  
-  else if(leftEnd === domL && board[leftIdx-1][0] === null && board[leftIdx-15][0] === null){
-    board[leftIdx-1] = [domL,1]
-    board[leftIdx-15] = [domR,1]
+  else if (leftEnd === domL && board[leftIdx - 1][0] === null && board[leftIdx - 15][0] === null) {
+    board[leftIdx - 1] = [domL, 1]
+    board[leftIdx - 15] = [domR, 1]
     leftEnd = domR
-    leftIdx = leftIdx-15
+    leftIdx = leftIdx - 15
   }
   //left side vertical up, right side dominoe matches left side
-  else if(leftEnd === domR && board[leftIdx-1][0] === null && board[leftIdx-15][0] === null){
-    board[leftIdx-1] = [domR,1]
-    board[leftIdx-15] = [domL,1]
+  else if (leftEnd === domR && board[leftIdx - 1][0] === null && board[leftIdx - 15][0] === null) {
+    board[leftIdx - 1] = [domR, 1]
+    board[leftIdx - 15] = [domL, 1]
     leftEnd = domL
-    leftIdx = leftIdx-15
+    leftIdx = leftIdx - 15
   }
   //left side vertical down Left side matches
-  else if(leftEnd === domL && board[leftIdx-1][0] === null && board[leftIdx+13][0] === null){
-    board[leftIdx-1] = [domL,1]
-    board[leftIdx+13] = [domR,1]
+  else if (leftEnd === domL && board[leftIdx - 1][0] === null && board[leftIdx + 13][0] === null) {
+    board[leftIdx - 1] = [domL, 1]
+    board[leftIdx + 13] = [domR, 1]
     leftEnd = domR
-    leftIdx = leftIdx+13
+    leftIdx = leftIdx + 13
   }
-  else if(leftEnd === domR && board[leftIdx-1][0] === null && board[leftIdx+13][0] === null){
-    board[leftIdx-1] = [domR,1]
-    board[leftIdx+13] = [domL,1]
+  else if (leftEnd === domR && board[leftIdx - 1][0] === null && board[leftIdx + 13][0] === null) {
+    board[leftIdx - 1] = [domR, 1]
+    board[leftIdx + 13] = [domL, 1]
     leftEnd = domL
-    leftIdx = leftIdx+13
+    leftIdx = leftIdx + 13
   }
   //?Right side vertical up
-  else if (rightEnd === domL && board[rightIdx+1][0] === null && board[rightIdx-13][0] === null){
-    board[rightIdx+1] = [domL,1]
-    board[rightIdx-13] = [domR,1]
+  else if (rightEnd === domL && board[rightIdx + 1][0] === null && board[rightIdx - 13][0] === null) {
+    board[rightIdx + 1] = [domL, 1]
+    board[rightIdx - 13] = [domR, 1]
     rightEnd = domR
-    rightIdx = rightIdx-13
+    rightIdx = rightIdx - 13
   }
   //right side vertical up, right side dominoe matches right side
-  else if (rightEnd === domR && board[rightIdx+1][0] === null && board[rightIdx-13][0] === null){
-    board[rightIdx+1] = [domR,1]
-    board[rightIdx-13] = [domL,1]
+  else if (rightEnd === domR && board[rightIdx + 1][0] === null && board[rightIdx - 13][0] === null) {
+    board[rightIdx + 1] = [domR, 1]
+    board[rightIdx - 13] = [domL, 1]
     rightEnd = domL
-    rightIdx = rightIdx-13
+    rightIdx = rightIdx - 13
   }
   //right side vertical down Left side matches rightend
-  else if (rightEnd === domL && board[rightIdx+1][0] === null && board[rightIdx+15][0] === null){
-    board[rightIdx+1] = [domL,1]
-    board[rightIdx+15] = [domR,1]
+  else if (rightEnd === domL && board[rightIdx + 1][0] === null && board[rightIdx + 15][0] === null) {
+    board[rightIdx + 1] = [domL, 1]
+    board[rightIdx + 15] = [domR, 1]
     rightEnd = domR
-    rightIdx = rightIdx+15
+    rightIdx = rightIdx + 15
   }
   //right side vertical down right side dominoe matches rightend
-  else if (rightEnd === domR && board[rightIdx+1][0] === null && board[rightIdx+15][0] === null){
-    board[rightIdx+1] = [domR,1]
-    board[rightIdx+15] = [domL,1]
+  else if (rightEnd === domR && board[rightIdx + 1][0] === null && board[rightIdx + 15][0] === null) {
+    board[rightIdx + 1] = [domR, 1]
+    board[rightIdx + 15] = [domL, 1]
     rightEnd = domL
-    rightIdx = rightIdx+15
+    rightIdx = rightIdx + 15
   }
 }
 
@@ -762,8 +804,10 @@ function linkGridToBoard() {
     } else {
       //number of dominoe and 0 for horizontal and 1 for vertical
       gameBoard.children[i].style.backgroundImage = `url('./images/Dominoes_${board[i][0]}_${board[i][1]}.png')`
-      if(board[i][0]!== null && board[i][0]!== 7){
-      gameBoard.children[i].style.boxShadow = "0px 5px 15px -5px #000000"
+      if (board[i][0] !== null && board[i][0] !== 7) {
+        gameBoard.children[i].style.backgroundColor = "#f5f1dc"
+        gameBoard.children[i].style.boxShadow = "0px 5px 15px -5px #000000"
+        gameBoard.children[i].style.backgroundSize = "85%"
       }
     }
   }
@@ -805,7 +849,7 @@ function findDoubleSix() {
   //need to place the 6,6 on the board.
   board[76] = [6, 0]
   board[77] = [6, 0]
-  
+
   leftEnd = 6
   rightEnd = 6
   leftIdx = 76
@@ -822,8 +866,8 @@ function deleteDominoe(num1, num2, array) {
       //just have to run link to dominoes again and it should appear on the screen
     }
     //doing it again just reverse direction depending on the CrossHair
-    else if(dom.join("") === `${num2},${num1}`){
-    array.splice(idx, 1)
+    else if (dom.join("") === `${num2},${num1}`) {
+      array.splice(idx, 1)
     }
   })
 
