@@ -341,22 +341,36 @@ init()
 
 function renderCrossHair() {
 
-  console.log('Left end: ', playerLeft)
-  console.log('Right end: ', playerRight)
-  console.log('Top end: ', playerTop)
-  console.log('Bottom end: ', playerBottom)
+  // console.log('Left end: ', playerLeft)
+  // console.log('Right end: ', playerRight)
+  // console.log('Top end: ', playerTop)
+  // console.log('Bottom end: ', playerBottom)
 
   //horizontal axis
   if (axis === -1) {
     crossHairSq0.style.backgroundImage = `url('./images/Dominoes_${playerLeft}_0.png')`
     crossHairSq1.style.backgroundImage = `url('./images/Dominoes_${playerRight}_0.png')`
     crossHairSq2.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
+
+    crossHairSq0.style.backgroundColor = "#f5f1dc"
+    crossHairSq0.style.boxShadow = "0px 5px 15px -5px #000000"
+    crossHairSq1.style.backgroundColor = "#f5f1dc"
+    crossHairSq1.style.boxShadow = "0px 5px 15px -5px #000000"
+    crossHairSq2.style.backgroundColor = "rgb(128,128,128)"
+    crossHairSq2.style.boxShadow = "0px 0px 0px 0px #000000"
   }
   //vertical
   if (axis === 1) {
     crossHairSq0.style.backgroundImage = `url('./images/Dominoes_${playerTop}_1.png')`
     crossHairSq2.style.backgroundImage = `url('./images/Dominoes_${playerBottom}_1.png')`
     crossHairSq1.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
+
+    crossHairSq0.style.backgroundColor = "#f5f1dc"
+    crossHairSq0.style.boxShadow = "0px 5px 15px -5px #000000"
+    crossHairSq2.style.backgroundColor = "#f5f1dc"
+    crossHairSq2.style.boxShadow = "0px 5px 15px -5px #000000"
+    crossHairSq1.style.backgroundColor = "rgb(128,128,128)"
+    crossHairSq1.style.boxShadow = "0px 0px 0px 0px #000000"
   }
 }
 
@@ -465,6 +479,15 @@ function resetCrossHair() {
   crossHairSq0.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
   crossHairSq2.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
   crossHairSq1.style.backgroundImage = `url('./images/Dominoes_null_null.png')`
+
+  crossHairSq0.style.backgroundColor = "rgb(128,128,128)"
+  crossHairSq0.style.boxShadow = "0px 0px 0px 0px #000000"
+
+  crossHairSq1.style.backgroundColor = "rgb(128,128,128)"
+  crossHairSq1.style.boxShadow = "0px 0px 0px 0px #000000"
+
+  crossHairSq2.style.backgroundColor = "rgb(128,128,128)"
+  crossHairSq2.style.boxShadow = "0px 0px 0px 0px #000000"
 
 }
 

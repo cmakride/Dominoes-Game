@@ -95,7 +95,7 @@ align-items: center;
 #cross-hair{
   align-items: center;
   display: flex;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   flex-direction: column;
   gap: 20px;
   font-size: 20px;
@@ -108,11 +108,15 @@ align-items: center;
   grid-template-rows: repeat(2, 8vmin);
   grid-template-columns: repeat(2, 8vmin);
   justify-content: start;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 
 }
 #crosshair-grid > *{
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  background-position: center;
+  background-size: 85%;
+  background-repeat: no-repeat;
+  
 }
 
 section.user-display{
@@ -144,11 +148,4 @@ section.gameBoard > *{
   background-size: cover;
   background-repeat: no-repeat;
   
-}
-section.gameBoard div {
-  /* background-color: rgb(165, 164, 164); */
-  
-  /* -moz-box-shadow:    1px 1px 2px 3px #ccc;
-  -webkit-box-shadow: 1px 1px 2px 3px #ccc;
-  box-shadow:         1px 1px 2px 3px #ccc; */
 }
