@@ -421,58 +421,37 @@ function init() {
 
 //play() will be invoked after each time the user picks a dominoe. 
 function play() {
-  // let timeLeft = 6
-  //   let text = "."
 
-  //   let timer = setInterval(function () {
-  //     compTimer.textContent = `Player ${currentTurn} is picking${text}`
-  //     timeLeft -= 1
-  //     text += "."
-  //     if(text === "...."){
-  //       text = "."
-  //     }
-
-  //     if (timeLeft < 0) {
-  //       compTimer.textContent = ""
-  //       clearInterval(timer)
-  //     }
-  //   }, 1000)
-
-  while (isWinner === null && currentTurn !== 1) {
-    let num1 = 0
-    let num2 = 0
-    let num3 = 0
-    if (currentTurn === 2) {
-      num1 = 6000
-      num2 = 12000
-      num3 = 18000
-    } else if (currentTurn === 3) {
-      num2 = 6000
-      num3 = 12000
-    } else if (currentTurn === 4) {
-      num3 = 6000
-    }
+  if (isWinner === null && currentTurn !== 1) {
+    
     if (currentTurn === 2) {
       // updateMessage.textContent = `Player 2 is picking...`
       setTimeout(() => {
         computer2Pick()
-      }, num1)
-      currentTurn++
+        setTimeout(() => {
+          computer3Pick()
+          setTimeout(() => {
+            computer4Pick()
+            // updateMessage.textContent = `Player 4 is picking...`
+          }, 6000)
+        }, 6000)
+      }, 6000)
+      
     }
-    if (currentTurn === 3) {
+    else if (currentTurn === 3) {
       setTimeout(() => {
         computer3Pick()
-        // updateMessage.textContent = `Player 4 is picking...`
-      }, num2)
-      currentTurn++
+        setTimeout(() => {
+          computer4Pick()
+        }, 6000)
+      }, 6000)
+      
     }
-    if (currentTurn === 4) {
+    else if (currentTurn === 4) {
       setTimeout(() => {
-
         computer4Pick()
-        // compTimer.textContent = ""
-      }, num3)
-      currentTurn = 1
+      }, 6000)
+      
     }
   }
 }
@@ -547,6 +526,7 @@ function computer2Pick() {
     console.log(numberPasses)
   }
   // placeDominoeOnBoard()//have computer player pick one of the dominoes based on length
+  currentTurn++
   render()
 }
 
@@ -573,6 +553,7 @@ function computer3Pick() {
     numberPasses++
     console.log("NUMBER PASSES: ", numberPasses)
   }
+  currentTurn++
   render()
 }
 
@@ -601,7 +582,7 @@ function computer4Pick() {
     numberPasses++
     console.log(numberPasses)
   }
-
+  currentTurn = 1
   render()
 }
 
@@ -876,7 +857,6 @@ function linkGridToBoard() {
       gameBoard.children[i].style.backgroundSize = "85%"
       
     } 
-    
     else {
       //number of dominoe and 0 for horizontal and 1 for vertical
       gameBoard.children[i].style.backgroundImage = `url('./images/Dominoes_${board[i][0]}_${board[i][1]}.png')`
