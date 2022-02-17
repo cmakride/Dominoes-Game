@@ -36,16 +36,16 @@ body {
 #player-01{
 align-items: center;
   display: flex;
-  border: 1px solid black;
   flex-direction: row;
   gap: 20px;
   font-size: 20px;
 }
 
 #player-01 > * {
-  border: 1px solid black;
-  height: 40px;
-  width: 30px;
+  
+  height: 60px;
+  width: 35px;
+  border-radius: 10%;
 
 }
 
@@ -123,12 +123,12 @@ align-items: center;
   
 }
 
-section.user-display{
-display: flex;
-flex-direction: row;
-width: 100%;
-gap: 10px ;
-justify-content: center;
+section.user-display {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 10px ;
+  justify-content: center;
 }
 
 section.gameBoard {
@@ -138,7 +138,7 @@ section.gameBoard {
   grid-template-rows: repeat(10, 8vmin);
   grid-template-columns: repeat(14, 8vmin);
   justify-content: start;
-  border: 1px solid black;
+  
   
 }
 
@@ -166,6 +166,13 @@ width: 50px;
 #pass{
 height: 20px;
 width: 50px;
+}
+
+#imp-messages{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0px 40px;
 }
 
 

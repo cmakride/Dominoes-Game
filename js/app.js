@@ -97,6 +97,7 @@ player1Dominoes.addEventListener("click", (evt) => {
   if (evt.target.id !== "player-01") {
     //index 5 of the id string will give the value of the dominoe picked and to be put in the crosshair
     let tempString = evt.target.id
+    console.log(tempString)
     let tempNum = parseInt(tempString[5])
     let tempArray = player1[tempNum]
     playerLeft = tempArray[0][0]
@@ -836,10 +837,16 @@ function linkDominoesToPlayers() {
     //Linking Users Dominos to Users Div Dominoes
     let newDiv = document.createElement('div')
     newDiv.id = `p1-d-${i}`
+    newDiv.style.backgroundImage = `url('./images/Dominoe_full_${player1[i][0][0]}_${player1[i][0][1]}.png')`
+    newDiv.style.backgroundSize = "85%"
+    newDiv.style.backgroundRepeat = 'no-repeat'
+    newDiv.style.backgroundPosition = 'center'
+    newDiv.style.backgroundColor = "#f5f1dc"
     player1Dominoes.appendChild(newDiv)
-    const currentUserDom = document.querySelector(`#p1-d-${i}`)
-    let currentUserString = player1[i].toString()
-    currentUserDom.textContent = currentUserString
+    //if need to add in text to see on display the array being added to each Domino
+    // const currentUserDom = document.querySelector(`#p1-d-${i}`)
+    // let currentUserString = player1[i].toString()
+    // currentUserDom.textContent = currentUserString
     
   }
 
@@ -937,7 +944,7 @@ function findDoubleSix() {
     }
 
   })
-  updateMessage.textContent = `A new game has started. The Dominoes were shuffled. Each Player was given 7 Dominoes. Player ${winner} had the Double Six and has placed it on the board.`
+  updateMessage.textContent = `A new game has started. Player ${winner} has placed the double six.`
   setTimeout(() => {
     updateMessage.textContent = ""
   }, 12000)
