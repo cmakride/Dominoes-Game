@@ -473,6 +473,7 @@ function computer2Pick() {
     placeDominoe((options[num]))
     deleteDominoe(options[num][0], options[num][1], player2)
     linkDominoesToPlayers()
+    numberPasses = 0
   }
   else {
     console.log("PLAYER 2 HAS PASSED")
@@ -499,6 +500,7 @@ function computer3Pick() {
     placeDominoe((options[num]))
     deleteDominoe(options[num][0], options[num][1], player3)
     linkDominoesToPlayers()
+    numberPasses = 0
   }
   else {
     console.log("PLAYER 3 HAS PASSED")
@@ -525,6 +527,7 @@ function computer4Pick() {
     deleteDominoe(options[num][0], options[num][1], player4)
     //reload the player's hands
     linkDominoesToPlayers()
+    numberPasses = 0
 
   }
   else {
