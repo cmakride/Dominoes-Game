@@ -82,9 +82,6 @@ const passButton = document.querySelector("#pass")
 /*----------------------------- Event Listeners -----------------------------*/
 resetButton.addEventListener("click", () => {
   init()
-
-
-
 })
 
 //event listener for crosshair, if click a dominoe in the user's dominoes, that dominoe will appear on the crosshair and the left and right or top and bottom values will be changed if the button is pressed
@@ -132,7 +129,9 @@ passButton.addEventListener("click", () => {
 
 crossHairButton.addEventListener("click", (evt) => {
   //if horizontal change to vertical
-  if (axis === -1) {
+  if(currentTurn === 1){
+    
+    if (axis === -1) {
     playerTop = playerLeft
     playerBottom = playerRight
     playerLeft = null
@@ -147,7 +146,10 @@ crossHairButton.addEventListener("click", (evt) => {
   }
   axis *= -1
   renderCrossHair()
+}
 })
+
+
 
 gameBoard.addEventListener('click', (evt) => {
   if (currentTurn === 1) {
@@ -354,6 +356,7 @@ function renderCrossHair() {
 
     crossHairSq0.style.backgroundColor = "#f5f1dc"
     crossHairSq0.style.boxShadow = "0px 5px 15px -5px #000000"
+
     crossHairSq1.style.backgroundColor = "#f5f1dc"
     crossHairSq1.style.boxShadow = "0px 5px 15px -5px #000000"
     crossHairSq2.style.backgroundColor = "rgb(128,128,128)"
@@ -837,6 +840,7 @@ function linkDominoesToPlayers() {
     const currentUserDom = document.querySelector(`#p1-d-${i}`)
     let currentUserString = player1[i].toString()
     currentUserDom.textContent = currentUserString
+    
   }
 
 
@@ -846,7 +850,10 @@ function linkDominoesToPlayers() {
     player2Dominoes.appendChild(newDiv)
     const currentComp2Dom = document.querySelector(`#p2-d-${i}`)
     let currentComp2String = player2[i].toString()
-    currentComp2Dom.textContent = currentComp2String
+    // currentComp2Dom.textContent = currentComp2String
+    currentComp2Dom.style.backgroundColor = "#f5f1dc"
+    currentComp2Dom.style.color = "#f5f1dc"
+    currentComp2Dom.style.boxShadow = "0px 5px 15px -5px #000000"
   }
 
   for (i = 0; i < player3.length; i++) {
@@ -855,7 +862,10 @@ function linkDominoesToPlayers() {
     player3Dominoes.appendChild(newDiv)
     const currentComp3Dom = document.querySelector(`#p3-d-${i}`)
     let currentComp3String = player3[i].toString()
-    currentComp3Dom.textContent = currentComp3String
+    // currentComp3Dom.textContent = currentComp3String
+    currentComp3Dom.style.backgroundColor = "#f5f1dc"
+    currentComp3Dom.style.color = "#f5f1dc"
+    currentComp3Dom.style.boxShadow = "0px 5px 15px -5px #000000"
   }
 
   for (i = 0; i < player4.length; i++) {
@@ -864,7 +874,10 @@ function linkDominoesToPlayers() {
     player4Dominoes.appendChild(newDiv)
     const currentComp4Dom = document.querySelector(`#p4-d-${i}`)
     let currentComp4String = player4[i].toString()
-    currentComp4Dom.textContent = currentComp4String
+    // currentComp4Dom.textContent = currentComp4String
+    currentComp4Dom.style.backgroundColor = "#f5f1dc"
+    currentComp4Dom.style.color = "#f5f1dc"
+    currentComp4Dom.style.boxShadow = "0px 5px 15px -5px #000000"
   }
   // get the string value extracted 
   //apply that string value to the currentDominoe

@@ -26,7 +26,6 @@ body {
 }
 
 #board{
-  border: 1px solid black;
   display : flex;
   gap: 20px 30px;
   justify-content: space-evenly;
@@ -38,20 +37,22 @@ body {
 align-items: center;
   display: flex;
   border: 1px solid black;
-  flex-direction: column;
+  flex-direction: row;
   gap: 20px;
   font-size: 20px;
 }
 
 #player-01 > * {
   border: 1px solid black;
+  height: 40px;
+  width: 30px;
 
 }
 
 #player-02{
   align-items: center;
+  justify-content: center;
   display: flex;
-  border: 1px solid black;
   flex-direction: column;
   gap: 20px;
   font-size: 20px;
@@ -59,56 +60,59 @@ align-items: center;
 }
 
 #player-02 > * {
-  border: 1px solid black;
+  height: 20px;
+  width: 30px;
+  border-radius: 10%;
 
 }
 
 #player-03{
   align-items: center;
   display: flex;
-  border: 1px solid black;
-  flex-direction: column;
+  flex-direction: row;
   gap: 20px;
   font-size: 20px;
 
 }
 
 #player-03 > * {
-  border: 1px solid black;
+  height: 30px;
+  width: 20px;
+  border-radius: 10%;
 
 }
 
 #player-04{
   align-items: center;
+  justify-content: center;
   display: flex;
-  border: 1px solid black;
   flex-direction: column;
   gap: 20px;
   font-size: 20px;
 }
 
 #player-04 > * {
-  border: 1px solid black;
+  height: 20px;
+  width: 30px;
+  border-radius: 10%;
 
 }
 
 #cross-hair{
   align-items: center;
   display: flex;
-  /* border: 1px solid black; */
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
   font-size: 20px;
 }
 
 #crosshair-grid{
   display: inline-grid;
-  margin-top: 24px;
+  margin-top: 10px;
   grid-gap: 0vmin;
   grid-template-rows: repeat(2, 8vmin);
   grid-template-columns: repeat(2, 8vmin);
   justify-content: start;
-  /* border: 1px solid black; */
 
 }
 #crosshair-grid > *{
@@ -123,11 +127,8 @@ section.user-display{
 display: flex;
 flex-direction: row;
 width: 100%;
-
+gap: 10px ;
 justify-content: center;
-border: 1px solid black;
-
-
 }
 
 section.gameBoard {
@@ -143,9 +144,29 @@ section.gameBoard {
 
 /* Each Grid Cell of the Board */
 section.gameBoard > *{
-  /* border: 1px solid rgb(228, 228, 228); */
+
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   
 }
+
+#user-control{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 50px;
+  
+}
+#rotate{
+height: 20px;
+width: 50px;
+}
+
+#pass{
+height: 20px;
+width: 50px;
+}
+
+
+

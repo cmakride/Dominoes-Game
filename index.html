@@ -20,41 +20,26 @@
 
 <body>
   <h2 id="message">Dominoes</h2>
-  <h2 id = "update-message"></h2>
+  
 
-  <h3 id="play-status">Game Status</h3>
+  <button id ="reset">Reset</button>
 
   <!-- section board will be displayed as flex row -->
 
   <!-- each player div will be flex column -->
   <section id="board">
-    <div id="player-01">
-      <!-- <h2>User</h2> -->
-    </div>
-    <div id="player-02">
-      <!-- <h2>Comp2</h2> -->
-    </div>
+    
+    
     <div id="player-03">
       <!-- <h2>Comp3</h2> -->
     </div>
-    <div id="player-04">
-      <!-- <h2>Comp4</h2> -->
-    </div>
-
-    <div id="cross-hair">
-      <button id="rotate">rotate</button>
-      <section id="crosshair-grid">
-        <div id="ch0"></div>
-        <div id="ch1"></div>
-        <div id="ch2"></div>
-      </section>
-      <button id ="reset">Reset</button>
-      <button id="pass">pass</button>
-
-    </div>
+    
   </section>
 
   <section class="user-display">
+
+    <div id="player-04"></div>
+
     <section class="gameBoard">
       <div id="sq0"></div>
       <div id="sq1"></div>
@@ -207,21 +192,37 @@
       <div id="sq137"></div>
       <div id="sq138"></div>
       <div id="sq139"></div>
-      <!-- <div id="sq140"></div>
-    <div id="sq141"></div>
-    <div id="sq142"></div>
-    <div id="sq143"></div> -->
+      
 
     </section>
+
+    <div id="player-02"></div>
+
   </section>
 
 
+  <section id = "user-control">
+    <!-- cross hair and user's dominoes -->
+    
+    
+    <button id="pass">pass</button>
+    
 
-  <!-- Putting the board in one big flex container with display column. First element is another container with display column to show the players dominoes, second child is the game board, third is another flex column for p2s dominoes
-  this is were will put -->
+    <div id="player-01"></div>
 
-  <!-- trying just two flex containers to get dominoes showing -->
+    <div id="cross-hair">
+      <button id="rotate">rotate</button>
+      <section id="crosshair-grid">
+        <div id="ch0"></div>
+        <div id="ch1"></div>
+        <div id="ch2"></div>
+      </section>
+    </div>
+    
 
+  </section>
+  <h3 id="play-status">Game Status</h3>
+  <h2 id = "update-message"></h2>
 
 
 
