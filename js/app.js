@@ -68,10 +68,14 @@ const crossHairSq2 = document.querySelector("#ch2")
 
 const crossHairButton = document.querySelector("#rotate")
 
-const compTimer = document.querySelector('#timer')
+const updateMessage = document.querySelector('#update-message')
+
 
 const favicon = document.querySelector("#favicon")
 favicon.setAttribute("href", "/images/dominoes_game_favicon.png")
+
+const passButton = document.querySelector("#pass")
+
 
 /*----------------------------- Event Listeners -----------------------------*/
 //event listener for crosshair, if click a dominoe in the user's dominoes, that dominoe will appear on the crosshair and the left and right or top and bottom values will be changed if the button is pressed
@@ -95,6 +99,26 @@ player1Dominoes.addEventListener("click", (evt) => {
     // console.log('right end: ',playerRight)
     renderCrossHair()
   }
+})
+
+passButton.addEventListener("click",()=>{
+if(currentTurn === 1){
+  console.log(currentTurn)
+  updateMessage.textContent = "Player One Passed"
+  currentTurn++
+  setTimeout(()=> {
+    updateMessage.textContent = ""
+  },4000)
+  render()
+  play()
+}else{
+  updateMessage.textContent = "It is not your turn"
+  setTimeout(()=> {
+    updateMessage.textContent = ""
+  },4000)
+}
+
+
 })
 
 crossHairButton.addEventListener("click", (evt) => {
@@ -385,7 +409,7 @@ function play() {
       num3 = 6000
     }
     if (currentTurn === 2) { 
-      // compTimer.textContent = `Player 2 is picking...`
+      // updateMessage.textContent = `Player 2 is picking...`
       setTimeout(()=> {
         computer2Pick()
       },num1)
@@ -394,8 +418,7 @@ function play() {
     if (currentTurn === 3) {
       setTimeout(()=> {
         computer3Pick()
-        
-        // compTimer.textContent = `Player 4 is picking...`
+        // updateMessage.textContent = `Player 4 is picking...`
       },num2)
       currentTurn++
     }
@@ -403,8 +426,7 @@ function play() {
       setTimeout(()=> {
         
         computer4Pick()
-        
-        compTimer.textContent = ""
+        // compTimer.textContent = ""
       },num3)
       currentTurn = 1
     }
