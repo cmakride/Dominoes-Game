@@ -146,7 +146,8 @@ section.gameBoard > *{
   
 }
 section.gameBoard div {
-  background-color: rgb(165, 164, 164);
+  /* background-color: rgb(165, 164, 164); */
+  
   /* -moz-box-shadow:    1px 1px 2px 3px #ccc;
   -webkit-box-shadow: 1px 1px 2px 3px #ccc;
   box-shadow:         1px 1px 2px 3px #ccc; */

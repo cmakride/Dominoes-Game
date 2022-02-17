@@ -74,10 +74,19 @@ const updateMessage = document.querySelector('#update-message')
 const favicon = document.querySelector("#favicon")
 favicon.setAttribute("href", "/images/dominoes_game_favicon.png")
 
+const resetButton = document.querySelector("#reset")
+
 const passButton = document.querySelector("#pass")
 
 
 /*----------------------------- Event Listeners -----------------------------*/
+resetButton.addEventListener("click", () => {
+  init()
+
+
+
+})
+
 //event listener for crosshair, if click a dominoe in the user's dominoes, that dominoe will appear on the crosshair and the left and right or top and bottom values will be changed if the button is pressed
 player1Dominoes.addEventListener("click", (evt) => {
   //need to reset everything
@@ -101,22 +110,22 @@ player1Dominoes.addEventListener("click", (evt) => {
   }
 })
 
-passButton.addEventListener("click",()=>{
-if(currentTurn === 1){
-  console.log(currentTurn)
-  updateMessage.textContent = "Player One Passed"
-  currentTurn++
-  setTimeout(()=> {
-    updateMessage.textContent = ""
-  },4000)
-  render()
-  play()
-}else{
-  updateMessage.textContent = "It is not your turn"
-  setTimeout(()=> {
-    updateMessage.textContent = ""
-  },4000)
-}
+passButton.addEventListener("click", () => {
+  if (currentTurn === 1) {
+    console.log(currentTurn)
+    updateMessage.textContent = "Player One Passed"
+    currentTurn++
+    setTimeout(() => {
+      updateMessage.textContent = ""
+    }, 4000)
+    render()
+    play()
+  } else {
+    updateMessage.textContent = "It is not your turn"
+    setTimeout(() => {
+      updateMessage.textContent = ""
+    }, 4000)
+  }
 
 
 })
@@ -352,9 +361,44 @@ function renderCrossHair() {
 }
 
 function init() {
+  //reset all the values
+  rightEnd = null
+  leftEnd = null
+  rightIdx = null
+  leftIdx = null
+
+  playerRight = null
+  playerLeft = null
+  playerTop = null
+  playerBottom = null
 
   isWinner = null
   numberPasses = 0
+
+  player1 = []
+  player2 = []
+  player3 = []
+  player4 = []
+  crossArray = []
+  dominoes = []
+
+  board.fill([null, null])
+  //setting top row to 7,0
+  for (let i = 0; i < 14; i++) {
+    board[i] = [7, 0]
+  }
+  //setting bottom row to 7,0
+  for (let i = 126; i < 140; i++) {
+    board[i] = [7, 0]
+  }
+  //setting left column to 7,0
+  for (let i = 14; i <= 112; i += 14) {
+    board[i] = [7, 0]
+  }
+  //setting right column to 7,0
+  for (let i = 27; i <= 125; i += 14) {
+    board[i] = [7, 0]
+  }
 
   dominoes = [[6, 6], [6, 5], [6, 4], [6, 3], [6, 2], [6, 1], [6, 0],
   [5, 5], [5, 4], [5, 3], [5, 2], [5, 1], [5, 0],
@@ -394,40 +438,40 @@ function play() {
   //     }
   //   }, 1000)
 
-  while(isWinner === null && currentTurn !== 1) {
+  while (isWinner === null && currentTurn !== 1) {
     let num1 = 0
     let num2 = 0
     let num3 = 0
-    if(currentTurn === 2){
+    if (currentTurn === 2) {
       num1 = 6000
       num2 = 12000
       num3 = 18000
-    }else if(currentTurn === 3){
+    } else if (currentTurn === 3) {
       num2 = 6000
       num3 = 12000
-    }else if(currentTurn === 4){
+    } else if (currentTurn === 4) {
       num3 = 6000
     }
-    if (currentTurn === 2) { 
+    if (currentTurn === 2) {
       // updateMessage.textContent = `Player 2 is picking...`
-      setTimeout(()=> {
+      setTimeout(() => {
         computer2Pick()
-      },num1)
+      }, num1)
       currentTurn++
     }
     if (currentTurn === 3) {
-      setTimeout(()=> {
+      setTimeout(() => {
         computer3Pick()
         // updateMessage.textContent = `Player 4 is picking...`
-      },num2)
+      }, num2)
       currentTurn++
     }
     if (currentTurn === 4) {
-      setTimeout(()=> {
-        
+      setTimeout(() => {
+
         computer4Pick()
         // compTimer.textContent = ""
-      },num3)
+      }, num3)
       currentTurn = 1
     }
   }
@@ -824,9 +868,16 @@ function linkDominoesToPlayers() {
 
 function linkGridToBoard() {
   for (let i = 0; i < board.length; i++) {
-    if (board[i] === null) {
+    if (board[i][0] === null) {
+      gameBoard.children[i].style.backgroundImage = `url('./images/Dominoes_${board[i][0]}_${board[i][1]}.png')`
       gameBoard.children[i].textContent = ""
-    } else {
+      gameBoard.children[i].style.backgroundColor = "rgb(165, 164, 164)"
+      gameBoard.children[i].style.boxShadow = "0px 0px 0px 0px #000000"
+      gameBoard.children[i].style.backgroundSize = "85%"
+      
+    } 
+    
+    else {
       //number of dominoe and 0 for horizontal and 1 for vertical
       gameBoard.children[i].style.backgroundImage = `url('./images/Dominoes_${board[i][0]}_${board[i][1]}.png')`
       if (board[i][0] !== null && board[i][0] !== 7) {
@@ -870,6 +921,10 @@ function findDoubleSix() {
     }
 
   })
+  updateMessage.textContent = `A new game has started. The Dominoes were shuffled. Each Player was given 7 Dominoes. Player ${winner} had the Double Six and has placed it on the board.`
+  setTimeout(() => {
+    updateMessage.textContent = ""
+  }, 12000)
   //need to subtract from that players dominoes
   //need to place the 6,6 on the board.
   board[76] = [6, 0]
