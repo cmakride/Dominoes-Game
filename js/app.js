@@ -85,6 +85,7 @@ const passButton = document.querySelector("#pass")
 
 /*----------------------------- Event Listeners -----------------------------*/
 resetButton.addEventListener("click", () => {
+  updateMessage.textContent = ""
   init()
 })
 
@@ -159,13 +160,13 @@ crossHairButton.addEventListener("click", (evt) => {
 
 
 gameBoard.addEventListener('click', (evt) => {
-  if (currentTurn === 1) {
-    console.log(evt.target.id)
+  if (currentTurn === 1 && isWinner === null) {
+    //console.log(evt.target.id)
     let numArray = []
     let tempString = evt.target.id
     let array = tempString.split('')
     numArray.push(parseInt(array[2]), parseInt(array[3]))
-    console.log(numArray)
+    //console.log(numArray)
     let idx = parseInt(numArray.join(''))
 
 
@@ -173,12 +174,13 @@ gameBoard.addEventListener('click', (evt) => {
     if (playerRight !== null) {
       //this square is to the right horizontally for right side
       if (board[idx][0] === null && rightIdx === idx - 1 && board[idx + 1][0] === null && playerLeft === rightEnd) {
-        console.log("TO THE RIGHT PLACING HORIZONTAL")
+        //console.log("TO THE RIGHT PLACING HORIZONTAL")
         board[idx] = [playerLeft, 0]
         board[idx + 1] = [playerRight, 0]
         rightEnd = playerRight
         rightIdx = idx + 1
-        console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+        //console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+        updateMessage.textContent = `Player 1 Picked: ${playerRight},${playerLeft}`
         currentTurn++
         deleteDominoe(playerRight, playerLeft, player1)
         render()
@@ -187,12 +189,13 @@ gameBoard.addEventListener('click', (evt) => {
 
       //? need right side going to the left
       if (board[idx][0] === null && rightIdx === idx + 1 && board[idx - 1][0] === null && playerRight === rightEnd) {
-        console.log("TO THE LEFT PLACING HORIZONTAL")
+        //console.log("TO THE LEFT PLACING HORIZONTAL")
         board[idx] = [playerRight, 0]
         board[idx - 1] = [playerLeft, 0]
         rightEnd = playerLeft
         rightIdx = idx - 1
-        console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+        //console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+        updateMessage.textContent = `Player 1 Picked: ${playerRight},${playerLeft}`
         currentTurn++
         deleteDominoe(playerRight, playerLeft, player1)
         render()
@@ -201,12 +204,13 @@ gameBoard.addEventListener('click', (evt) => {
 
       
       if (board[idx][0] === null && leftIdx === idx - 1 && board[idx + 1][0] === null && playerLeft === leftEnd) {
-        console.log("TO THE RIGHT PLACING HORIZONTAL")
+        //console.log("TO THE RIGHT PLACING HORIZONTAL")
         board[idx] = [playerLeft, 0]
         board[idx + 1] = [playerRight, 0]
         leftEnd = playerRight
         leftIdx = idx + 1
-        console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+        //console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+        updateMessage.textContent = `Player 1 Picked: ${playerRight},${playerLeft}`
         currentTurn++
         deleteDominoe(playerRight, playerLeft, player1)
         render()
@@ -216,28 +220,36 @@ gameBoard.addEventListener('click', (evt) => {
 
       //this square is to the left horizontally for left side
       if (board[idx][0] === null && leftIdx === idx + 1 && board[idx - 1][0] === null && playerRight === leftEnd) {
-        console.log("TO THE LEFT PLACING HORIZONTAL")
+        //console.log("TO THE LEFT PLACING HORIZONTAL")
         board[idx] = [playerRight, 0]
         board[idx - 1] = [playerLeft, 0]
         leftEnd = playerLeft
         leftIdx = idx - 1
-        console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+        //console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+        updateMessage.textContent = `Player 1 Picked: ${playerRight},${playerLeft}`
         currentTurn++
         deleteDominoe(playerRight, playerLeft, player1)
         render()
         play()
       }
+      else{
+        if(currentTurn === 1){
+        updateMessage.textContent = "Domino not positioned correctly. Click on a domino and use rotate button"
+        }
+      }
     }
+    
 
     if (playerTop !== null) {
       //?going vertical Up, dominoe is directly up
       if (board[idx][0] === null && rightIdx === idx + 14 && board[idx - 14][0] === null && playerBottom === rightEnd) {
-        console.log("PLACING DOMINOE DIRECTLY ABOVE RIGHT END")
+        //console.log("PLACING DOMINOE DIRECTLY ABOVE RIGHT END")
         board[idx] = [playerBottom, 1]
         board[idx - 14] = [playerTop, 1]
         rightEnd = playerTop
         rightIdx = idx - 14
-        console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+        //console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+        updateMessage.textContent = `Player 1 Picked: ${playerTop},${playerBottom}`
         currentTurn++
         deleteDominoe(playerTop, playerBottom, player1)
         render()
@@ -246,12 +258,13 @@ gameBoard.addEventListener('click', (evt) => {
 
       //? going vertical up for leftside 
       if (board[idx][0] === null && leftIdx === idx + 14 && board[idx - 14][0] === null && playerBottom === leftEnd) {
-        console.log("PLACING DOMINOE DIRECTLY ABOVE LEFT END")
+        //console.log("PLACING DOMINOE DIRECTLY ABOVE LEFT END")
         board[idx] = [playerBottom, 1]
         board[idx - 14] = [playerTop, 1]
         leftEnd = playerTop
         leftIdx = idx - 14
-        console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+        //console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+        updateMessage.textContent = `Player 1 Picked: ${playerTop},${playerBottom}`
         currentTurn++
         deleteDominoe(playerTop, playerBottom, player1)
         render()
@@ -260,12 +273,13 @@ gameBoard.addEventListener('click', (evt) => {
 
       //? going vertical for rightside down
       if (board[idx][0] === null && rightIdx === idx - 14 && board[idx + 14][0] === null && playerTop === rightEnd) {
-        console.log("PLACING DOMINOE DIRECTLY BELOW RIGHT END")
+        //console.log("PLACING DOMINOE DIRECTLY BELOW RIGHT END")
         board[idx] = [playerTop, 1]
         board[idx + 14] = [playerBottom, 1]
         rightEnd = playerBottom
         rightIdx = idx + 14
-        console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+        //console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+        updateMessage.textContent = `Player 1 Picked: ${playerTop},${playerBottom}`
         currentTurn++
         deleteDominoe(playerTop, playerBottom, player1)
         render()
@@ -274,12 +288,13 @@ gameBoard.addEventListener('click', (evt) => {
 
       //?going vertical for leftside down
       if (board[idx][0] === null && leftIdx === idx - 14 && board[idx + 14][0] === null && playerTop === leftEnd) {
-        console.log("PLACING DOMINOE DIRECTLY BELOW LEFT END")
+        //console.log("PLACING DOMINOE DIRECTLY BELOW LEFT END")
         board[idx] = [playerTop, 1]
         board[idx + 14] = [playerBottom, 1]
         leftEnd = playerBottom
         leftIdx = idx + 14
-        console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+        //console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+        updateMessage.textContent = `Player 1 Picked: ${playerTop},${playerBottom}`
         currentTurn++
         deleteDominoe(playerTop, playerBottom, player1)
         render()
@@ -290,12 +305,13 @@ gameBoard.addEventListener('click', (evt) => {
       //putting the dominoe vertically to the right and down
       if (board[idx][0] === null && rightIdx === idx - 1 && board[idx + 14][0] === null && playerTop === rightEnd) {
         //place dominoe on the right side vertical down
-        console.log("TO THE RIGHT PLACING VERTICAL DOWN")
+        //console.log("TO THE RIGHT PLACING VERTICAL DOWN")
         board[idx] = [playerTop, 1]
         board[idx + 14] = [playerBottom, 1]
         rightEnd = playerBottom
         rightIdx = idx + 14
-        console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+        //console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+        updateMessage.textContent = `Player 1 Picked: ${playerTop},${playerBottom}`
         currentTurn++
         deleteDominoe(playerTop, playerBottom, player1)
         render()
@@ -304,12 +320,13 @@ gameBoard.addEventListener('click', (evt) => {
       }
       //putting the dominoe vertically to the right and up
       else if (board[idx][0] === null && rightIdx === idx - 1 && board[idx - 14][0] === null && playerBottom === rightEnd) {
-        console.log("TO THE RIGHT PLACING VERTICAL UP")
+        //console.log("TO THE RIGHT PLACING VERTICAL UP")
         board[idx] = [playerBottom, 1]
         board[idx - 14] = [playerTop, 1]
         rightEnd = playerTop
         rightIdx = idx - 14
-        console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+        //console.log(`NEW RIGHT END = ${rightEnd} WITH RIGHT INDEX = ${rightIdx}`)
+        updateMessage.textContent = `Player 1 Picked: ${playerTop},${playerBottom}`
         currentTurn++
         deleteDominoe(playerTop, playerBottom, player1)
         render()
@@ -318,30 +335,38 @@ gameBoard.addEventListener('click', (evt) => {
       }
       //placing left side and up
       if (board[idx][0] === null && leftIdx === idx + 1 && board[idx - 14][0] === null && playerBottom === leftEnd) {
-        console.log("TO THE LEFT PLACING VERTICAL UP")
+        //console.log("TO THE LEFT PLACING VERTICAL UP")
         board[idx] = [playerBottom, 1]
         board[idx - 14] = [playerTop, 1]
         leftEnd = playerTop
         leftIdx = idx - 14
-        console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+        //console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+        updateMessage.textContent = `Player 1 Picked: ${playerTop},${playerBottom}`
         currentTurn++
         deleteDominoe(playerTop, playerBottom, player1)
         render()
         play()
       }
       else if (board[idx][0] === null && leftIdx === idx + 1 && board[idx + 14][0] === null && playerTop === leftEnd) {
-        console.log("TO THE LEFT PLACING VERTICAL DOWN")
+        //console.log("TO THE LEFT PLACING VERTICAL DOWN")
         board[idx] = [playerTop, 1]
         board[idx + 14] = [playerBottom, 1]
         leftEnd = playerBottom
         leftIdx = idx + 14
-        console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+        //console.log(`NEW LEFT END = ${leftEnd} WITH LEFT INDEX = ${leftIdx}`)
+        updateMessage.textContent = `Player 1 Picked: ${playerTop},${playerBottom}`
         currentTurn++
         deleteDominoe(playerTop, playerBottom, player1)
         render()
         play()
       }
+      else{
+        if(currentTurn === 1){
+          updateMessage.textContent = "Domino not positioned correctly. Click on a domino and use rotate button"
+          }
+      }
     }
+    
   }
 })
 
@@ -528,9 +553,11 @@ function render() {
   }
   if (isWinner === 1 || isWinner === 2 || isWinner === 3 || isWinner === 4) {
     messageEL.textContent = `${isWinner} is the Winner!`
+    updateMessage.textContent = `Game has ended.`
   }
   if (isWinner === 0) {
     messageEL.textContent = `IT IS A TIE!`
+    updateMessage.textContent = `Game has ended.`
   }
   //Display Right and Left ends
   rightLeftM.textContent = `Left End: ${leftEnd} | Right End: ${rightEnd}`
@@ -552,7 +579,7 @@ function computer2Pick() {
   //first picks a random dominoe
   if (options.length !== 0) {
     let num = Math.floor(Math.random() * options.length)
-    updateMessage.textContent = `Player 2 Picked: ${options[num]}`
+    updateMessage.textContent = `Player 2 Picked:  ${options[num]}`
     console.log("Computer 2 Picked: ", options[num])
     placeDominoe((options[num]))
     deleteDominoe(options[num][0], options[num][1], player2)
@@ -562,7 +589,7 @@ function computer2Pick() {
   else {
     updateMessage.textContent= "Player 2 has passed"
     numberPasses++
-    console.log(numberPasses)
+  
   }
   
   currentTurn++
@@ -579,8 +606,8 @@ function computer3Pick() {
   //console.log("Computer 3 Picking. OPTIONS: ", options)
   if (options.length !== 0) {
     let num = Math.floor(Math.random() * options.length)
-    //console.log("RANDOM INDEX = ",num)
-    updateMessage.textContent = `Player 3 Picked: ${options[num]}`//sends the picked dominoe to the board
+    console.log("Computer 3 Picked: ", options[num])
+    updateMessage.textContent = `Player 3 Picked:  ${options[num]}`//sends the picked dominoe to the board
     placeDominoe((options[num]))
     deleteDominoe(options[num][0], options[num][1], player3)
     linkDominoesToPlayers()
@@ -605,9 +632,10 @@ function computer4Pick() {
   //console.log("Computer 4 Picking. OPTIONS: ", options)
   if (options.length !== 0) {
     let num = Math.floor(Math.random() * options.length)
-    updateMessage.textContent = `Player 4 Picked: ${options[num]}`
+    console.log("Computer 4 Picked: ", options[num])
+    updateMessage.textContent = `Player 4 Picked:  ${options[num]}`
     setTimeout(() => {
-      updateMessage.textContent = ""
+      updateMessage.textContent = "It is your turn Player1. Please select a domino"
     }, 6000)
     placeDominoe((options[num]))
     //delete that dominoe from the players hand because it is now on the board
@@ -620,7 +648,7 @@ function computer4Pick() {
   else {
     updateMessage.textContent = "Player 4 has passed"
     setTimeout(() => {
-      updateMessage.textContent = ""
+      updateMessage.textContent = "It is your turn Player1. Please select a domino"
     }, 6000)
     numberPasses++
   }
@@ -962,6 +990,9 @@ function findDoubleSix() {
   updateMessage.textContent = `Player ${winner} has placed the double six.`
   setTimeout(() => {
     updateMessage.textContent = ""
+    if(winner === 1){
+      updateMessage.textContent = "It is your turn Player1. Please select a domino"
+    }
   }, 12000)
   //need to subtract from that players dominoes
   //need to place the 6,6 on the board.
