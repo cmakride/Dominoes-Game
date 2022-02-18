@@ -87,6 +87,7 @@ resetButton.addEventListener("click", () => {
 //event listener for crosshair, if click a dominoe in the user's dominoes, that dominoe will appear on the crosshair and the left and right or top and bottom values will be changed if the button is pressed
 player1Dominoes.addEventListener("click", (evt) => {
   //need to reset everything
+  if(currentTurn === 1){
   playerRight = null
   playerLeft = null
   playerTop = null
@@ -106,6 +107,7 @@ player1Dominoes.addEventListener("click", (evt) => {
     // console.log('right end: ',playerRight)
     renderCrossHair()
   }
+}
 })
 
 passButton.addEventListener("click", () => {
@@ -163,7 +165,7 @@ gameBoard.addEventListener('click', (evt) => {
     let idx = parseInt(numArray.join(''))
 
 
-    //there has to be something in the crosshair for this to happen because crosshair updates the player right/left or top/bottom values
+    
     if (playerRight !== null) {
       //this square is to the right horizontally for right side
       if (board[idx][0] === null && rightIdx === idx - 1 && board[idx + 1][0] === null && playerLeft === rightEnd) {
@@ -193,7 +195,7 @@ gameBoard.addEventListener('click', (evt) => {
         play()
       }
 
-      //? after outcomes do left side going horizontally right
+      
       if (board[idx][0] === null && leftIdx === idx - 1 && board[idx + 1][0] === null && playerLeft === leftEnd) {
         console.log("TO THE RIGHT PLACING HORIZONTAL")
         board[idx] = [playerLeft, 0]
