@@ -55,7 +55,7 @@ let axis = -1
 /*-------------------------------- Variables --------------------------------*/
 /*------------------------ Cached Element References ------------------------*/
 const gameBoard = document.querySelector(".gameBoard")
-const messageEL = document.querySelector("#play-status")
+
 const player1Dominoes = document.querySelector("#player-01")
 const player2Dominoes = document.querySelector("#player-02")
 const player3Dominoes = document.querySelector("#player-03")
@@ -68,7 +68,11 @@ const crossHairSq2 = document.querySelector("#ch2")
 
 const crossHairButton = document.querySelector("#rotate")
 
+//messages
+const messageEL = document.querySelector("#play-status")
 const updateMessage = document.querySelector('#update-message')
+const rightLeftM = document.querySelector("#right-left")
+
 
 
 const favicon = document.querySelector("#favicon")
@@ -430,13 +434,15 @@ function init() {
   shuffleDominoes()
   linkDominoesToPlayers()
 
-  currentTurn = findDoubleSix()
-
-
   render()
-  play()
+  updateMessage.textContent = `A new game has started. Finding player with double six.`
 
-
+  setTimeout(() => {
+    currentTurn = findDoubleSix()
+    render()
+    play()
+  }, 8000)
+  
 }
 
 //play() will be invoked after each time the user picks a dominoe. 
@@ -498,25 +504,27 @@ function resetCrossHair() {
 }
 
 function render() {
-  console.log("RENDER RIGHT END: ", rightEnd)
-  console.log("RENDER RIGHT IDX: ", rightIdx)
-  console.log("RENDER LEFT END: ", leftEnd)
-  console.log("RENDER LEFT IDX: ", leftIdx)
+  //?if Need to check the system's performance
+  // console.log("RENDER RIGHT END: ", rightEnd)
+  // console.log("RENDER RIGHT IDX: ", rightIdx)
+  // console.log("RENDER LEFT END: ", leftEnd)
+  // console.log("RENDER LEFT IDX: ", leftIdx)
+
   //refresh the player's dominoes
   linkDominoesToPlayers()
   //Link the gameboard array to the grid in the html
   linkGridToBoard()
-
+  //Reset the crosshair grid
   resetCrossHair()
 
   //displaying the message of which player's turn it is
   if (currentTurn === 5) {
     currentTurn = 1
   }
-
+  //check if there is a winner
   checkWinner()
   if (isWinner === null) {
-    messageEL.textContent = `Game still in Progress it is Player ${currentTurn}'s Turn`
+    messageEL.textContent = `Game in Progress. It is Player ${currentTurn}'s Turn`
   }
   if (isWinner === 1 || isWinner === 2 || isWinner === 3 || isWinner === 4) {
     messageEL.textContent = `${isWinner} is the Winner!`
@@ -524,7 +532,9 @@ function render() {
   if (isWinner === 0) {
     messageEL.textContent = `IT IS A TIE!`
   }
-  console.log('CURRENT TURN', currentTurn)
+  //Display Right and Left ends
+  rightLeftM.textContent = `Left End: ${leftEnd} | Right End: ${rightEnd}`
+  
 }
 
 // console.log(rightEnd, leftEnd)
@@ -538,11 +548,11 @@ function computer2Pick() {
       options.push(dominoe[0])
     }
   })
-  console.log("Computer 2 Picking. OPTIONS: ", options)
+  //console.log("Computer 2 Picking. OPTIONS: ", options)
   //first picks a random dominoe
   if (options.length !== 0) {
     let num = Math.floor(Math.random() * options.length)
-    //console.log("RANDOM INDEX = ",num)
+    updateMessage.textContent = `Player 2 Picked: ${options[num]}`
     console.log("Computer 2 Picked: ", options[num])
     placeDominoe((options[num]))
     deleteDominoe(options[num][0], options[num][1], player2)
@@ -550,11 +560,11 @@ function computer2Pick() {
     numberPasses = 0
   }
   else {
-    console.log("PLAYER 2 HAS PASSED")
+    updateMessage.textContent= "Player 2 has passed"
     numberPasses++
     console.log(numberPasses)
   }
-  // placeDominoeOnBoard()//have computer player pick one of the dominoes based on length
+  
   currentTurn++
   render()
 }
@@ -566,21 +576,19 @@ function computer3Pick() {
       options.push(dominoe[0])
     }
   })
-  console.log("Computer 3 Picking. OPTIONS: ", options)
-
+  //console.log("Computer 3 Picking. OPTIONS: ", options)
   if (options.length !== 0) {
     let num = Math.floor(Math.random() * options.length)
     //console.log("RANDOM INDEX = ",num)
-    console.log("Computer 3 Picked: ", options[num])//sends the picked dominoe to the board
+    updateMessage.textContent = `Player 3 Picked: ${options[num]}`//sends the picked dominoe to the board
     placeDominoe((options[num]))
     deleteDominoe(options[num][0], options[num][1], player3)
     linkDominoesToPlayers()
     numberPasses = 0
   }
   else {
-    console.log("PLAYER 3 HAS PASSED")
+    updateMessage.textContent = "Player 3 has passed"
     numberPasses++
-    console.log("NUMBER PASSES: ", numberPasses)
   }
   currentTurn++
   render()
@@ -594,10 +602,13 @@ function computer4Pick() {
     }
   })
 
-  console.log("Computer 4 Picking. OPTIONS: ", options)
+  //console.log("Computer 4 Picking. OPTIONS: ", options)
   if (options.length !== 0) {
     let num = Math.floor(Math.random() * options.length)
-    console.log("Computer 4 Picked: ", options[num])
+    updateMessage.textContent = `Player 4 Picked: ${options[num]}`
+    setTimeout(() => {
+      updateMessage.textContent = ""
+    }, 6000)
     placeDominoe((options[num]))
     //delete that dominoe from the players hand because it is now on the board
     deleteDominoe(options[num][0], options[num][1], player4)
@@ -607,9 +618,11 @@ function computer4Pick() {
 
   }
   else {
-    console.log("PLAYER 4 HAS PASSED")
+    updateMessage.textContent = "Player 4 has passed"
+    setTimeout(() => {
+      updateMessage.textContent = ""
+    }, 6000)
     numberPasses++
-    console.log(numberPasses)
   }
   currentTurn = 1
   render()
@@ -946,7 +959,7 @@ function findDoubleSix() {
     }
 
   })
-  updateMessage.textContent = `A new game has started. Player ${winner} has placed the double six.`
+  updateMessage.textContent = `Player ${winner} has placed the double six.`
   setTimeout(() => {
     updateMessage.textContent = ""
   }, 12000)
