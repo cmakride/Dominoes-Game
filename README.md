@@ -15,7 +15,7 @@ Technologies Used:
 
 - html
 - javascript
-- css
+- css 
 - git
 - adobe photoshop
 
@@ -24,4 +24,5 @@ Future Enhancements:
 1. Multiplayer
 2. Smarter AI
 3. User the option to change dominoe board/color
-4. Add (gameMode), first team to 21  
+4. Add (gameMode), first team to 21 
+5. make gameboard scale to screen so can see the entire board if want
