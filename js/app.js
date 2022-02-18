@@ -677,6 +677,21 @@ function placeDominoe(dominoe) {
     leftEnd = domL
     leftIdx = leftIdx - 2
   }
+  // Left side wanting to go right horizontal,when crosshair is [domR,domL]
+  else if (leftEnd === domR && board[leftIdx + 1][0] === null && board[leftIdx + 2][0] === null) {
+    board[leftIdx + 1] = [domR, 0]
+    board[leftIdx + 2] = [domL, 0]
+    leftEnd = domL
+    leftIdx = leftIdx + 2
+  }
+  // Left side wanting to go right horizontal,when crosshair is [domL,domR]
+  else if (leftEnd === domL && board[leftIdx + 1][0] === null && board[leftIdx + 2][0] === null) {
+    board[leftIdx + 1] = [domL, 0]
+    board[leftIdx + 2] = [domR, 0]
+    leftEnd = domR
+    leftIdx = leftIdx + 2
+  }
+  
   //now for right end Horizontal
   else if (rightEnd === domL && board[rightIdx + 1][0] === null && board[rightIdx + 2][0] === null) {
     board[rightIdx + 1] = [domL, 0]
@@ -689,6 +704,20 @@ function placeDominoe(dominoe) {
     board[rightIdx + 2] = [domL, 0]
     rightEnd = domL
     rightIdx = rightIdx + 2
+  }
+  //right side wanting to go left horizontal, when crosshair is [domL,domR]
+  else if (rightEnd === domL && board[rightIdx - 1][0] === null && board[rightIdx - 2][0] === null) {
+    board[rightIdx - 1] = [domL, 0]
+    board[rightIdx - 2] = [domR, 0]
+    rightEnd = domR
+    rightIdx = rightIdx - 2
+  }
+  //right side wanting to go left horizontal, when crosshair is [domR,domL]
+  else if (rightEnd === domR && board[rightIdx - 1][0] === null && board[rightIdx - 2][0] === null) {
+    board[rightIdx - 1] = [domR, 0]
+    board[rightIdx - 2] = [domL, 0]
+    rightEnd = domL
+    rightIdx = rightIdx - 2
   }
   //end of Horizontal
 
