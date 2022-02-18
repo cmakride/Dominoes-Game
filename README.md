@@ -1,4 +1,4 @@
-# 4 Player Dominoes
+# Dominoes 
 
 ![alt text](./images_readme/Screen%20Shot%202022-02-18%20at%208.39.16%20AM.png)
 
