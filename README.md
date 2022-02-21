@@ -1,4 +1,4 @@
-# Dominoes 
+# Dominoes
 
 ![alt text](./images_readme/Screen%20Shot%202022-02-18%20at%208.39.16%20AM.png)
 
@@ -9,6 +9,7 @@ This version of Dominoes is the user playing with three computer players. The ga
 Placing a Domino: You can only place a domino on the ends of the current dominoe board. 
 
 ## [Play the game here](https://cmakride.github.io/Dominoes-Game/ "Link To Dominoes Game").
+
 
 
 Technologies Used:
@@ -22,6 +23,6 @@ Future Enhancements:
 
 1. Multiplayer
 2. Smarter AI
-3. User the option to change dominoe board/color
+3. User the option to change board/color
 4. Add (gameMode), first team to 21 
 5. make gameboard scale to screen so can see the entire board
