@@ -8,21 +8,20 @@ This version of Dominoes is the user playing with three computer players. The ga
 
 Placing a Domino: You can only place a domino on the ends of the current dominoe board. 
 
-[Play the game here](https://cmakride.github.io/Dominoes-Game/ "Link To Dominoes Game").
+## [Play the game here](https://cmakride.github.io/Dominoes-Game/ "Link To Dominoes Game").
 
 
 Technologies Used:
 
-- html
-- javascript
-- css 
-- git
-- adobe photoshop
-
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![CSS](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![Adobe Photoshop](https://img.shields.io/badge/adobe%20photoshop-%2331A8FF.svg?style=for-the-badge&logo=adobe%20photoshop&logoColor=white)
+                   
 Future Enhancements:
 
 1. Multiplayer
 2. Smarter AI
 3. User the option to change dominoe board/color
 4. Add (gameMode), first team to 21 
-5. make gameboard scale to screen so can see the entire board if want
+5. make gameboard scale to screen so can see the entire board
